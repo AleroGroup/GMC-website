@@ -2,8 +2,6 @@
 <div>
  <HeaderMain />
   <v-content align-center justify-center align-content-center>
-
-
     <v-flex fluid>
       <v-img src="https://images.ctfassets.net/pinw8ucllktt/6JLfvNfnn5ti7JMkddjN5e/dff65f5e80197e06f4eda3922974443d/37954915406_b4b672f478_h.png">
        <v-card-title class="justify-center align-content-center align-center " style="color:white;" >
