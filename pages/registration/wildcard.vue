@@ -13,7 +13,7 @@
        <v-container fill-height>
           <v-layout align-center>
            <v-flex text-xs-left>
-              <h3 class="display-2 font-weight-medium" style="color:#5C5C5C;">Company Participants</h3>
+              <h3 class="display-2 font-weight-medium" style="color:#5C5C5C;">Wildcard Participants</h3>
            </v-flex>
           </v-layout>
       </v-container>
