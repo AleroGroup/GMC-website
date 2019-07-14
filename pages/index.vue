@@ -118,7 +118,7 @@
         <v-layout row style="margin-top:6%;">
          <!-------------------------->
           <v-flex xs6 sm6 >
-            <v-card-text style="width:560px; margin-left:11%;">
+            <v-card-text style="width:480px; margin-left:6%;">
                <div class="headline font-weight-medium" style="color:#202565;"> Great Minds Challenge is a two months program, with an exclusive 3 days of impactful challenge. The challenge is focused on growing a New Generation of Leaders with New Mindset, who will Co-create to achieve Sustainable, Innovative and Purpose.</div>
              <v-btn to="/register" outline large color="#202565" class="title" style="margin-top:2%;">Get Started</v-btn>
             </v-card-text>
