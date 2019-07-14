@@ -1,6 +1,6 @@
 # gmc_client
 
-> This is the client side for the GMC project
+> this is the gmc client website
 
 ## Build Setup
 
