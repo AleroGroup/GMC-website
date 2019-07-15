@@ -15,7 +15,7 @@ app.use(express.json())
 
 })
 module.exports = {
-  path: '/api/nodemailer',
+  path: '/server/nodemailer',
   handler: app
 }
 const sendMail = (emailInfo, emailProvider ) => {

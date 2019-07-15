@@ -12,7 +12,7 @@
         <v-btn flat color="#0074C1" style="font-size:16px;">Coaches & Experts</v-btn>
         <v-btn flat color="#0074C1" style="font-size:16px;">Services</v-btn>
       </v-toolbar-items>
-    <v-btn to="/contacts" outline large color="#0074C1" style="font-size:16px;border-radius:9px;border: 2px solid">Talk to us</v-btn>
+    <v-btn to="/" outline large color="#0074C1" style="font-size:16px;border-radius:9px;border: 2px solid">Talk to us</v-btn>
     </v-toolbar>
 </v-flex>
 </template>
