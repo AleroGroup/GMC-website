@@ -30,6 +30,14 @@ module.exports = {
   },
 
   /*
+  ** server middleware
+  */
+
+  serverMiddleware: [
+    '~/server/nodemailer'
+  ],
+
+  /*
   ** Customize the progress-bar color
   */
   loading: { color: '#fff' },
@@ -78,5 +86,9 @@ module.exports = {
     */
     extend(config, ctx) {
     }
+  },
+  env: {
+    SENDGRID_ENDPOINT: process.env.SENDGRID_ENDPOINT,
+    SENDGRID_TO: process.env.SENDGRID_TO
   }
 }

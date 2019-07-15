@@ -10,8 +10,10 @@
        <v-icon dark color="red">arrow-down</v-icon>
        </v-img>
     </v-flex>
-<v-flex  xs12 sm12 md12 justify-center align-center hidden-xs-only>
-  <v-carousel hide-delimiters hide-controls flat >
+
+<v-flex xs12 sm12 md12 justify-center align-center hidden-xs-only>
+  <v-layout style="background-color:#F5F5F5;">
+  <v-carousel hide-delimiters hide-controls flat class="elevation-0" style="margin-top:5%;">
     <v-carousel-item
       v-for="(item,i) in items"
       :key="i"
@@ -19,6 +21,8 @@
       flat
     ></v-carousel-item>
   </v-carousel>
+  </v-layout>
+
 
     <v-layout row wrap align-center style="background:#F5F5F5;">
        <v-flex xs12 md4>
@@ -115,12 +119,12 @@
     </v-layout justify-center>
         <v-img src="https://images.ctfassets.net/pinw8ucllktt/28RVgHDvBY0EzVin4FyINn/8783dfc9b36abe3e66a84b4e800ee4f2/swash.svg" style="margin-top:2%;">
 
-        <v-layout row style="margin-top:6%;">
+        <v-layout row style="margin-top:8%;">
          <!-------------------------->
           <v-flex xs6 sm6 >
             <v-card-text style="width:480px; margin-left:6%;">
-               <div class="headline font-weight-medium" style="color:#202565;"> Great Minds Challenge is a two months program, with an exclusive 3 days of impactful challenge. The challenge is focused on growing a New Generation of Leaders with New Mindset, who will Co-create to achieve Sustainable, Innovative and Purpose.</div>
-             <v-btn to="/register" outline large color="#202565" class="title" style="margin-top:2%;">Get Started</v-btn>
+               <div class="headline font-weight-medium" style="color:#202565;"> Great Minds Challenge is a two months program, with an exclusive 3 days of impactful challenge. The challenge is focused on growing a New Generation of Leaders with New Mindset.</div>
+             <v-btn to="/register" outline  color="#202565" class="" style="margin-top:4%;">Get Started</v-btn>
             </v-card-text>
           </v-flex>
           <v-flex xs12 sm10 hidden-md-and-down>
@@ -162,16 +166,22 @@ export default {
       return {
         items: [
           {
-            src: 'https://images.ctfassets.net/pinw8ucllktt/4SDMoPikQYG09nnf1Z5gOc/12c315a1ca63076028fb3eba22194e25/Vimal.svg'
+            src: 'https://images.ctfassets.net/pinw8ucllktt/5lFs14MKwYsVf6fNDIH92a/22a50fe88a416b99ca6f8cc7acb7429a/Vimal.svg'
           },
           {
-            src: 'https://images.ctfassets.net/pinw8ucllktt/5IzFQ02Q8k5xGs6zhseH1r/d2316ceb4f196332defc4dee692903de/Arthue.svg'
+            src: 'https://images.ctfassets.net/pinw8ucllktt/5pHNT8ufND8Gjjs82OZl0V/2fb352aec2be969b89829c3750f28c72/Arthue.svg'
           },
           {
-            src: 'https://images.ctfassets.net/pinw8ucllktt/5qbYWN7Jxdv46yQmZdhSSX/1bbfe312b8a2fc934a9c48bc1fd23f79/Susan.svg'
+            src: 'https://images.ctfassets.net/pinw8ucllktt/1nVqVTmhBJNLUMumjOVXK0/26ac1a9a17ebe83e84d0697ec9949691/Susan.svg'
           },
           {
-            src: 'https://images.ctfassets.net/pinw8ucllktt/6fo8axQb6fTZyQAj0OfRLh/143ecd323de87271b3946a7111340e96/Decimar_Ogutu.svg'
+            src: 'https://images.ctfassets.net/pinw8ucllktt/5wgUPTN4elswkuoyQq0FmT/09ee90a2346f60be0a1899de599efe13/Decimar_Ogutu.svg'
+          },
+          {
+            src: 'https://images.ctfassets.net/pinw8ucllktt/2sDZSJslWJj0OMBGpKi7ki/77325ba523d2bbf34325d65f6f346b83/Irene_Fwaya.svg'
+          },
+          {
+            src: 'https://images.ctfassets.net/pinw8ucllktt/6Vo2BpTyPCvdooHfEmlGqU/d0e73e42be6c9b9a10ca2e470dea5914/Hibert_Omondi.svg'
           }
         ]
       }
@@ -184,13 +194,7 @@ export default {
 .card-main{
   color: #5C5C5C;
 }
-.v-carousel{
-box-shadow: none;
-}
-.underline{
-  border-bottom: 1px solid #0074C1;
-  width: 290px;
-}
+
 
 </style>
 
