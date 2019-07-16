@@ -67,54 +67,7 @@
 </v-content>
 </template>
 
-<script>
-  export default {
-    data () {
-      const defaultForm = Object.freeze({
-        name: '',
-        email: '',
-        msg: ''
-      })
-
-      return {
-        form: Object.assign({}, defaultForm),
-        rules: {
-          email: [val => (val || '').length > 0 || 'This field is required']
-        },
-        snackbar: false,
-        defaultForm
-      }
-    },
-
-    computed: {
-      formIsValid () {
-        return (
-          this.form.name &&
-          this.form.email &&
-          this.form.msg
-        )
-      }
-    },
-
-    methods: {
-      resetForm () {
-        this.form = Object.assign({}, this.defaultForm)
-        this.$refs.form.reset()
-      },
-      sendEmail () {
-        const emailData = {
-            name: this.form.name,
-            email: this.form.email,
-            msg: this.form.msg,
-        }
-        this.$store.dispatch ('sendMail', emailData)
 
 
-        this.snackbar = true
-        this.resetForm()
-      }
-    }
-  }
-</script>
 
 

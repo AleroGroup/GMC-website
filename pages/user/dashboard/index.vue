@@ -83,7 +83,6 @@ import companyForms from './forms/company'
 import wildcardForms from './forms/wildcard'
 import HomeMain from './home'
 import contactForm from './contact'
-import google from './google'
 
 export default {
   components: {

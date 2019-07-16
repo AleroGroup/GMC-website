@@ -5,7 +5,7 @@
     <v-flex fluid>
       <v-img src="https://images.ctfassets.net/pinw8ucllktt/6JLfvNfnn5ti7JMkddjN5e/dff65f5e80197e06f4eda3922974443d/37954915406_b4b672f478_h.png">
        <v-card-title class="justify-center align-content-center align-center " style="color:white;" >
-       <h1 class="display-4 font-weight-bold text-uppercase fill-height" style="margin-top:38%;">The future is Now </h1>
+       <h1 class="display-4 font-weight-bold text-uppercase fill-height" style="margin-top:38%">The future is Now </h1>
        </v-card-title>
        <v-icon dark color="red">arrow-down</v-icon>
        </v-img>
@@ -117,30 +117,41 @@
       </v-layout>
 
     </v-layout justify-center>
-        <v-img src="https://images.ctfassets.net/pinw8ucllktt/28RVgHDvBY0EzVin4FyINn/8783dfc9b36abe3e66a84b4e800ee4f2/swash.svg" style="margin-top:2%;">
+      <v-img src="https://images.ctfassets.net/pinw8ucllktt/28RVgHDvBY0EzVin4FyINn/8783dfc9b36abe3e66a84b4e800ee4f2/swash.svg" style="margin-top:2%;">
 
-        <v-layout row style="margin-top:8%;">
+        <v-layout row style="margin-top:8%;" text-xs-left text-lg-left>
          <!-------------------------->
-          <v-flex xs6 sm6 >
-            <v-card-text style="width:480px; margin-left:6%;">
+          <v-flex xs10 sm8 >
+            <v-card-text style="margin-left:6%;">
                <div class="headline font-weight-medium" style="color:#202565;"> Great Minds Challenge is a two months program, with an exclusive 3 days of impactful challenge. The challenge is focused on growing a New Generation of Leaders with New Mindset.</div>
              <v-btn to="/register" outline  color="#202565" class="" style="margin-top:4%;">Get Started</v-btn>
             </v-card-text>
-          </v-flex>
-          <v-flex xs12 sm10 hidden-md-and-down>
-            <v-card flat color="transparent" >
-              <v-card-media
-                contain
-                height="350"
-                src="https://images.ctfassets.net/pinw8ucllktt/4413O2WCLFr6ta7jvJrqvt/cef678e65e78c61798b2eb58d1936173/Group_126.png"
-            />
-            </v-card>
           </v-flex>
           <!-------------------------->
         </v-layout>
     <!------------------------------------------>
       </v-img>
     </v-layout>
+
+  <v-flex xs12 md12 justify-center hidden-xs-only style="margin-top:5%;">
+  <v-card-title class="layout justify-center display-1 font-weight-bold">
+    Partners
+  </v-card-title>
+  <v-layout>
+    <v-carousel hide-delimiters hide-controls flat class="elevation-0 justify-center" style="margin-top:2%;">
+    <v-carousel-item
+      v-for="(logo,i) in logos"
+      :key="i"
+      :src="logo.src"
+      flat
+      style="height:190px"
+    ></v-carousel-item>
+  </v-carousel>
+ 
+  
+  </v-layout>
+  </v-flex>
+
   </v-layout>
   </v-content>
 
@@ -166,22 +177,30 @@ export default {
       return {
         items: [
           {
-            src: 'https://images.ctfassets.net/pinw8ucllktt/5lFs14MKwYsVf6fNDIH92a/22a50fe88a416b99ca6f8cc7acb7429a/Vimal.svg'
+            src: 'https://images.ctfassets.net/pinw8ucllktt/6aOZfH87XoB0reAQeXcidm/6af343393edfee508fe9eceaec72af51/Vimal.svg'
           },
           {
-            src: 'https://images.ctfassets.net/pinw8ucllktt/5pHNT8ufND8Gjjs82OZl0V/2fb352aec2be969b89829c3750f28c72/Arthue.svg'
+            src: 'https://images.ctfassets.net/pinw8ucllktt/6qweuhyFBbd73HD2KgkSPE/a7fe8970142b03643cb03c813db868e7/Arthue.svg'
           },
           {
-            src: 'https://images.ctfassets.net/pinw8ucllktt/1nVqVTmhBJNLUMumjOVXK0/26ac1a9a17ebe83e84d0697ec9949691/Susan.svg'
+            src: 'https://images.ctfassets.net/pinw8ucllktt/1HOMv8MHfD6VcR1lZqrm8g/4dbb9492d7498b6f542b80cbac6a1b4b/Susan.svg'
           },
           {
-            src: 'https://images.ctfassets.net/pinw8ucllktt/5wgUPTN4elswkuoyQq0FmT/09ee90a2346f60be0a1899de599efe13/Decimar_Ogutu.svg'
+            src: 'https://images.ctfassets.net/pinw8ucllktt/1s0xrmSopI8DpmDwCv9K9P/6c8e4eea52d9b15ca635612e94f33609/Irene_Fwaya.svg'
           },
           {
-            src: 'https://images.ctfassets.net/pinw8ucllktt/2sDZSJslWJj0OMBGpKi7ki/77325ba523d2bbf34325d65f6f346b83/Irene_Fwaya.svg'
+            src: 'https://images.ctfassets.net/pinw8ucllktt/40nEHEzpCyuaPhFGYUUXXe/d75883771aea318496537b5aa4bc5f78/Hibert_Omondi.png'
           },
           {
-            src: 'https://images.ctfassets.net/pinw8ucllktt/6Vo2BpTyPCvdooHfEmlGqU/d0e73e42be6c9b9a10ca2e470dea5914/Hibert_Omondi.svg'
+            src: 'https://images.ctfassets.net/pinw8ucllktt/36CrM3LQPVoOAJXxHRMPzc/bfb5c35f7ee7b7f231be82424c997f10/Decimar_Ogutu.svg'
+          }
+        ],
+        logos: [
+          {
+              src: 'https://images.ctfassets.net/pinw8ucllktt/44B3uuULMLXEDJrhfYazyZ/fa5fd354683d830fd884dacd38447779/Group_142.svg'
+          },
+          {
+              src: 'https://images.ctfassets.net/pinw8ucllktt/4pmXS2LEIJiCNaKbLUDBHA/4c2e9a092988563fe04cf0319ea3a32d/Group_140.svg'
           }
         ]
       }

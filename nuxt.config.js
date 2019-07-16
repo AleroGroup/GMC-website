@@ -29,13 +29,7 @@ module.exports = {
     ]
   },
 
-  /*
-  ** server middleware
-  */
 
-  serverMiddleware: [
-    '~/server/nodemailer'
-  ],
 
   /*
   ** Customize the progress-bar color
@@ -62,14 +56,25 @@ module.exports = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/proxy'
   ],
   /*
   ** Axios module configuration
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    baseURL: '/'
   },
-
+  
+  /*
+  ** Proxy config
+  */
+  proxy: {
+    '/.netlify': {
+      target: 'http://localhost:9000',
+      pathRewrite: { '^/.netlify/functions': '' }
+    }
+  },
   /*
   ** Build configuration
   */
@@ -87,8 +92,5 @@ module.exports = {
     extend(config, ctx) {
     }
   },
-  env: {
-    SENDGRID_ENDPOINT: process.env.SENDGRID_ENDPOINT,
-    SENDGRID_TO: process.env.SENDGRID_TO
-  }
+
 }
