@@ -1,26 +1,39 @@
 /* eslint-disable no-console */
-require('dotenv').config()
-const Mailgun = require('mailgun-js')
-const { MG_API_KEY: apiKey, MG_DOMAIN: domain, MG_HOST: host } = process.env
-const mailgun = Mailgun({
-  apiKey,
-  domain,
-  host
-})
+// https://github.com/sendgrid/sendgrid-nodejs
+class Mail {
+  static sender(recipiant){
+  // using SendGrid's v3 Node.js Library
+  // https://github.com/sendgrid/sendgrid-nodejs
+  const sgMail = require('@sendgrid/mail');
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  const msg = {
+   to: recipiant,
+   from: 'test@test.com',
+   subject: 'Sending with SendGrid is Fun',
+   text: 'and easy to do anywhere, even with Node.js',
+   html: 'and easy to do anywhere, even with Node.js',
+   };
+   sgMail.send(msg);
+   }
+  }
 
-// eslint-disable-next-line require-await
+ module.exports = Mail
+
+require ('@nuxt/dotenv')
+
+/* // eslint-disable-next-line require-await
 const sendEmail = async ({ name, recipient }) => {
   console.log('Sending email')
   return new Promise((resolve, reject) => {
     const mailData = {
-      from: 'Great Minds Challenge <noreply@greatmindschallenge.co.ke>',
+      from: 'Great Minds Challenge <info@greatmindschallenge.co.ke>',
       to: recipient.toString(),
       subject: `Hello ${name}`,
       html: `<p> Dear Great Mind,
 
 The Great Minds Challenge team is highly honoured by your decision to join the 2019 Challenge under the theme, “Champion by Design.”
 
-Congratulations on starting what will be a lifetime experience. We will tap into your passion for innovation and creativity as we align your purpose for you to be able to achieve your personal goals and your company’s vision and mission in a strategic unique GMC model. 
+Congratulations on starting what will be a lifetime experience. We will tap into your passion for innovation and creativity as we align your purpose for you to be able to achieve your personal goals and your company’s vision and mission in a strategic unique GMC model.
 
 This world class platform will inspire and challenge you to great lengths. We will network you with some of the best experts to give you a new perception about everything you need to unlearn to develop a new mind set.
 
@@ -74,3 +87,4 @@ exports.handler = async event => {
     }
   }
 }
+ */

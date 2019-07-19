@@ -78,11 +78,11 @@
 </template>
 
 <script>
-import DashHeader from '../../../components/user_dash/header'
-import companyForms from './forms/company'
-import wildcardForms from './forms/wildcard'
-import HomeMain from './home'
-import contactForm from './contact'
+import DashHeader from '../../components/user_dash/header'
+import companyForms from '../user/dashboard/forms/company'
+import wildcardForms from '../user/dashboard/forms/wildcard'
+import HomeMain from '../user/dashboard/home'
+import contactForm from '../user/dashboard/contact'
 
 export default {
   components: {
@@ -90,7 +90,7 @@ export default {
     'wildcardForms': wildcardForms,
     'HomeMain': HomeMain,
     'contactForm': contactForm,
-    'google': google,
+  
 
   },
   head () {

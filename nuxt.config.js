@@ -65,15 +65,12 @@ module.exports = {
     // See https://github.com/nuxt-community/axios-module#options
     baseURL: '/'
   },
-  
+
   /*
   ** Proxy config
   */
   proxy: {
-    '/.netlify': {
-      target: 'http://localhost:9000',
-      pathRewrite: { '^/.netlify/functions': '' }
-    }
+   //
   },
   /*
   ** Build configuration

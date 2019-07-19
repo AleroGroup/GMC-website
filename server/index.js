@@ -1,29 +1,49 @@
 const express = require('express')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
-const app = express()
-
 const cors = require('cors')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 
+
+const app = express()
  // import database configuration
 app.use(cors())
 
-
-const company = require('./routes/company.js');
+ // send functions
+const company = require('./api/routes/company');
 app.use('/api/company', company);
 
-const wildcard = require('./routes/wildcard.js');
+const wildcard = require('./api/routes/wildcard');
 app.use('/api/wildcard', wildcard);
 
+const sgMail = require('@sendgrid/mail');
+
+
+    app.get('/sendmail', (req, res, next) => {
+      sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+     //Get Variables from query string in the search bar
+      const { recipient, name } = req.query; 
+
+      //Sendgrid Data Requirements
+      const msg = {
+      to: recipient, 
+      from: 'Great Minds Challenge <noreply@greatmindschallenge.co.ke>',
+      subject: `Hello ${name}`,
+      html: `<p> Dear Great Mind,`
+    }
+
+  //Send Email
+  sgMail.send(msg)
+  .then((msg) => console.log(text));
+});
 
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')
 config.dev = !(process.env.NODE_ENV === 'production')
 
 async function start() {
-  
+
   app.use(morgan('dev'))
   app.use(bodyParser.json())
   // Init Nuxt.js

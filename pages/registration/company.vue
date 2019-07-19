@@ -27,13 +27,13 @@
       right
       color="success"
     >
-      <span>Registration successful!</span>
+      <span>{{ response }}</span>
       <v-icon dark>check_circle</v-icon>
     </v-snackbar>
 
     <v-flex  xs12 sm12 md12 class="justify-center" style="margin-top:5%;">
       <!-- This is the company form -->
-      <v-form ref="mailgunForm" :rules="rules" :model="form">
+      <v-form ref="form" :rules="rules" :model="form">
         <v-layout row wrap justify-center>
           <v-flex xs12 sm4 md3 style="margin-left: 0.8%;">
               <v-text-field
@@ -179,9 +179,9 @@
         <v-layout justify-center style="margin-top:3%;">
           <v-flex xs12 sm8 md6 class="justify-center">
             <v-card-actions>
-               <v-btn flat @click="resetForm('mailgunForm')">Cancel</v-btn>
+               <button flat @click="resetForm()">Cancel</button>
                <v-spacer></v-spacer>
-                <v-btn flat color="primary" @click="submitForm('mailgunForm')">Apply</v-btn>
+                <button flat color="primary" @click="submitForm()">Apply</button>
             </v-card-actions>
           </v-flex>
         </v-layout>
@@ -233,6 +233,7 @@
           description:'',
           terms: false,
           },
+
         rules: {
           surname: [val => (val || '').length > 0 || 'This field is required'],
           names: [val => (val || '').length > 0 || 'This field is required'],
@@ -240,9 +241,10 @@
           noc: [val => (val || '').length > 0 || 'This field is required'],
           jobPosition: [val => (val || '').length > 0 || 'This field is required'],
         },
-      
+
         termsContent: `Esteemed Great Mind, by submitting this application form, you unconditionally and without any reservation agree to abide by all Great Minds Challenge TCs, as stated on the application form. You faithfully declare that all the information provided above is true to the best of your knowledge. You agree not to hold us liable for any accidents or incidents when travelling to and from Naivasha, during meet and greet and during your stay on the 3 exclusive days. You agree to fully take responsibility of your actions and indemnify Great Minds Challenge from any accidents or incidents. You declare to freely attend in good faith and be committed during the 2 months engagement with GMC. We commit to endeavour to offer you a world class experience observing international best practice standards.
         `,
+
         terms:false,
         snackbar: false,
         error:null,
@@ -250,35 +252,26 @@
       }
     },
 
-   
     methods: {
-      submitForm(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          this.postFormToLambdaFunction()
-        } else {
-          return false
-        }
-      })
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields()
-      this.error = null
-    },
-    async postFormToLambdaFunction() {
-      try {
-        const res = await this.$axios.$post('/.netlify/functions/mailgun', {
+      submitForm() {
+       try{
+        const res = axios.$post('/sendmail', {
           name: this.form.names,
           recipient: this.form.email
         })
         this.response = res
         this.error = null
-        this.resetForm('mailgunForm')
+        this.resetForm('form')
       } catch (e) {
         this.error = e.response
         this.response = '—'
       }
-    }
+    },
+    resetForm() {
+      this.$refsform.resetFields()
+      this.error = null
+    },
+
    }
  }
 

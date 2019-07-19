@@ -6,7 +6,7 @@ const router = express.Router();
 
 
 //Get the post ( companyform )
-router.get('/company', async (req, res) => {
+router.get('/api/company', async (req, res) => {
     const company = await loadCompanyCollection();
     res.send(await company.find({}).toArray());
 });
@@ -19,7 +19,7 @@ async function loadCompanyCollection() {
     const client = await mongodb.MongoClient.connect(url, {
         useNewUrlParser: true
     });
-
+    console.log('Mongodb is connected')
     return client.db('userForms').collection('wildcard');
 }
 
