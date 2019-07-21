@@ -9,7 +9,7 @@
           <v-btn to="/register" flat large color="#0074C1">Back</v-btn>
     </v-toolbar>
   </v-flex>
-      <v-jumbotron color="#C1ECF9" style="height:300px;">
+      <v-responsive style="height:300px; background-color:#C1ECF9;">
        <v-container fill-height>
           <v-layout align-center>
            <v-flex text-xs-left>
@@ -17,23 +17,13 @@
            </v-flex>
           </v-layout>
       </v-container>
-      </v-jumbotron>
+      </v-responsive>
 
     <v-content style="margin-bottom:3%;">
-      <v-snackbar
-      v-model="snackbar"
-      absolute
-      top
-      right
-      color="success"
-    >
-      <span>{{ response }}</span>
-      <v-icon dark>check_circle</v-icon>
-    </v-snackbar>
 
     <v-flex  xs12 sm12 md12 class="justify-center" style="margin-top:5%;">
       <!-- This is the company form -->
-      <v-form ref="form" :rules="rules" :model="form">
+      <v-form ref="form">
         <v-layout row wrap justify-center>
           <v-flex xs12 sm4 md3 style="margin-left: 0.8%;">
               <v-text-field
@@ -46,7 +36,7 @@
           </v-flex>
            <v-flex xs12 sm4 md3 style="margin-left: 0.8%;">
               <v-text-field
-                v-model="form.name"
+                v-model="form.names"
                 name="names"
                 :rules="rules.names"
                 label="Given Names*"
@@ -181,7 +171,7 @@
             <v-card-actions>
                <button flat @click="resetForm()">Cancel</button>
                <v-spacer></v-spacer>
-                <button flat color="primary" @click="submitForm()">Apply</button>
+                <button flat color="primary" @click="submit()">Apply</button>
             </v-card-actions>
           </v-flex>
         </v-layout>
@@ -212,6 +202,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
     export default{
       head () {
         return {
@@ -220,59 +212,75 @@
       },
   data () {
       return {
-        form: {
-          surname: '',
-          names: '',
-          company: '',
-          dob: '',
-          noc: '',
-          jobPosition:'',
-          email:'',
-          phone: '',
-          list: '',
-          description:'',
-          terms: false,
-          },
+    form: {
+      surname: null,
+      names: null,
+      company: null,
+      dob: null,
+      noc: null,
+      jobPosition:null,
+      email:null,
+      phone: null,
+      list: null,
+      description:null,
+      terms: false,
+
+
+
+    },
+
 
         rules: {
-          surname: [val => (val || '').length > 0 || 'This field is required'],
-          names: [val => (val || '').length > 0 || 'This field is required'],
-          dob: [val => (val || '').length > 0 || 'This field is required'],
-          noc: [val => (val || '').length > 0 || 'This field is required'],
-          jobPosition: [val => (val || '').length > 0 || 'This field is required'],
+          //surname: [val => (val || '').length > 0 || 'This field is required'],
+          //names: [val => (val || '').length > 0 || 'This field is required'],
+          //dob: [val => (val || '').length > 0 || 'This field is required'],
+          //noc: [val => (val || '').length > 0 || 'This field is required'],
+          //jobPosition: [val => (val || '').length > 0 || 'This field is required'],
         },
 
         termsContent: `Esteemed Great Mind, by submitting this application form, you unconditionally and without any reservation agree to abide by all Great Minds Challenge TCs, as stated on the application form. You faithfully declare that all the information provided above is true to the best of your knowledge. You agree not to hold us liable for any accidents or incidents when travelling to and from Naivasha, during meet and greet and during your stay on the 3 exclusive days. You agree to fully take responsibility of your actions and indemnify Great Minds Challenge from any accidents or incidents. You declare to freely attend in good faith and be committed during the 2 months engagement with GMC. We commit to endeavour to offer you a world class experience observing international best practice standards.
         `,
 
         terms:false,
-        snackbar: false,
-        error:null,
-        response: '—',
+
+        error:'',
       }
     },
 
     methods: {
-      submitForm() {
-       try{
-        const res = axios.$post('/sendmail', {
-          name: this.form.names,
-          recipient: this.form.email
+      sendEmail() {
+      return axios.post('http://localhost:3000/sendEmail/parse',{ to: this.form.email })
+
+      },
+     submitForm() {
+       return axios.post('http://localhost:3000/company/post', {
+        surname: this.form.surname,
+        names: this.form.names,
+        dob: this.form.dob,
+        noc: this.form.noc,
+        jobPosition: this.form.jobPosition,
+        email: this.form.email,
+        phone: this.form.phone,
+        listAc: this.form.list,
+        desc: this.form.desc
+      })
+      },
+      submit() {
+        axios.all([sendEmail()]).then(response => {
+            this.$router.push('/welcome')
+            console.log('successful')
         })
-        this.response = res
-        this.error = null
-        this.resetForm('form')
-      } catch (e) {
-        this.error = e.response
-        this.response = '—'
-      }
-    },
+        .catch(err => {
+          this.errors.push(error)
+        })
+
+      },
     resetForm() {
       this.$refsform.resetFields()
+      this.terms = false
+      this.$router.push('/welcome')
       this.error = null
-    },
-
-   }
- }
-
+    }
+  }
+}
 </script>

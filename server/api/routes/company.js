@@ -1,26 +1,68 @@
-const express = require('express');
-const mongodb = require('mongodb');
+//this is the form for the company
+const express = require('express')
+const router = express.Router()
+const mongoose = require('mongoose')
 
+const Company = require('../models/company')
 
-const router = express.Router();
+//GET the form by id
 
-
-//Get the post ( companyform )
-router.get('/api/company', async (req, res) => {
-    const company = await loadCompanyCollection();
-    res.send(await company.find({}).toArray());
+router.get('/:comapanyId', (req, res, next) => {
+    const id = req.params.comapanyId;
+    Company.findById(id)
+    .exec()
+    .then(doc =>{
+        console.log(doc);
+        res.status(200).json(doc);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({error: err});
+    });
 });
 
 
-//collections
+//GET all forms
+ router.get('/', (req, res, next) => {
+     Company.find().exec().then(docs => {
+         console.log(docs);
+         res.status(200).json(docs);
+     }).catch(error => {
+         console.log(error);
+         res.status(500).json({
+             error: err
+         });
+     });
+ });
 
-async function loadCompanyCollection() {
-    const url = 'mongodb+srv://'+ process.env.MONGODB_USER + ':' + process.env.MONGODB_PASS+'@cluster0-jsnt7.mongodb.net/test?retryWrites=true&w=majority'
-    const client = await mongodb.MongoClient.connect(url, {
-        useNewUrlParser: true
-    });
-    console.log('Mongodb is connected')
-    return client.db('userForms').collection('wildcard');
-}
+//POST
+router.post('/post', (req, res, next) => {
+    const company = new Company({
+        _id: new mongoose.Types.ObjectId(),
+        surname: req.body.surname ,
+        names: req.body.names,
+        dob: req.body.dob,
+        noc:req.body.noc,
+        jobPosition:req.body.jobPosition,
+        email: req.body.email,
+        phone: req.body.phone,
+        listAc:req.body.listAc,
+        desc: req.body.desc
+    })
+    company.save().then(result => {
+        console.log(result);
+        res.status(201).json({
+     message: 'company registered successfully'
+        });
+    }).catch(err => {
+        console.log(err)
+        res.status(500).json({
+          error: err
+    })
+})
+
+})
+
+//UPDATE
 
 module.exports = router;

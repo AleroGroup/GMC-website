@@ -1,35 +1,67 @@
-const express = require('express');
-const mongodb = require('mongodb');
-require('dotenv').config();
+//this is the form for the company
+const express = require('express')
+const router = express.Router()
+const mongoose = require('mongoose')
 
-const router = express.Router();
+const Wildcard = require('../models/wildcard')
 
+//GET the form by id
 
-//Get the applicants
-router.get('/api/wildcard', async (req, res) => {
-    const wildcard = await loadWildcardCollection();
-    res.send(await wildcard.find({}).toArray());
-});
-
-router.post('/api/wildcard', async (req, res) => {
-  const wildcard = await loadWildcardCollection();
-  await posts.insertOne({
-    text: req.body.text,
-    createdAt: new Date()
-  });
-  res.status(201).send();
-});
-
-
-//collections
-
-async function loadWildcardCollection() {
-    const url = 'mongodb+srv://'+ process.env.MONGODB_USER + ':' + process.env.MONGODB_PASS+'@cluster0-jsnt7.mongodb.net/test?retryWrites=true&w=majority'
-    const client = await mongodb.MongoClient.connect(url, {
-        useNewUrlParser: true
+router.get('/:wildcardId', (req, res, next) => {
+    const id = req.params.wildcardId;
+    Wildcard.findById(id)
+    .exec()
+    .then(doc =>{
+        console.log(doc);
+        res.status(200).json(doc);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({error: err});
     });
+});
 
-    return client.db('userForms').collection('wildcard');
-}
+
+//GET all forms
+ router.get('/', (req, res, next) => {
+     Wildcard.find().exec().then(docs => {
+         console.log(docs);
+         res.status(200).json(docs);
+     }).catch(error => {
+         console.log(error);
+         res.status(500).json({
+             error: err
+         });
+     });
+ });
+
+//POST
+router.post('/post', (req, res, next) => {
+    const wildcard = new Wildcard({
+        _id: new mongoose.Types.ObjectId(),
+        surname: req.body.surname ,
+        givenNames: req.body.givenNames,
+        dob: req.body.dob,
+        noc:req.body.noc,
+        jobTitle:req.body.jobTitle,
+        email: req.body.email,
+        phone: req.body.phone,
+        listAc:req.body.listAc,
+        desc: req.body.desc
+    })
+    wildcard.save().then(result => {
+        console.log(result);
+        res.status(201).json({
+     message: 'wildcard registered successfully'
+        });
+    }).catch(error => {
+        console.log(error)
+        res.status(500).json({
+          error: err
+    })
+})
+})
+
+//UPDATE
 
 module.exports = router;

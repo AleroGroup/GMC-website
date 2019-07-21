@@ -1,5 +1,6 @@
 const pkg = require('./package')
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
+require('dotenv').config()
 
 module.exports = {
   mode: 'universal',
@@ -56,7 +57,8 @@ module.exports = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/proxy'
+    '@nuxtjs/proxy',
+    '@nuxtjs/dotenv',
   ],
   /*
   ** Axios module configuration
@@ -89,5 +91,9 @@ module.exports = {
     extend(config, ctx) {
     }
   },
-
+  env: {
+    SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
+    MONGODB_PASS: process.env.MONGODB_PASS,
+    
+  }
 }
