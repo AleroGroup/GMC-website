@@ -2,24 +2,24 @@
 <v-content>
     <v-layout xs12 md4>
        <v-flex fluid>
-  <v-toolbar height="95">
-        <v-toolbar-title >
-          <img src="../assets/imgs/logo.png" alt="GMClogo" height="95" style="margin-left:8%;">
-        </v-toolbar-title>
-        <v-spacer />
 
-    </v-toolbar>
-  </v-flex>
+    <v-layout column justify-center align-center style="margin-top:10%;">
+       <img src="../assets/imgs/logo.png" alt="GMClogo" height="150" style="margin-left:2%; margin-bottom:9%;">
+       <div primary-title class="headline font-italic font-weight-medium green--text">
+         "The Future is now"
+       </div>
     </v-layout>
-    <v-layout justify-center align-center style="margin-top:25%;">
-       <v-progress-circular
+     <v-layout column justify-center align-center style="margin-top:10%;">
+        <v-progress-circular
             :rotate="360"
             :size="60"
             :width="8"
             :value="value"
-            color="blue">
+            color="blue"
+          ></v-progress-circular>
 
-            </v-progress-circular>
+    </v-layout>
+  </v-flex>
     </v-layout>
 </v-content>
 </template>
@@ -54,7 +54,7 @@ export default {
 
             }
             this.value += 10
-        }, 340)
+        }, 200)
     }
 }
 </script>
