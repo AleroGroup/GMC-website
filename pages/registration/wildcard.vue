@@ -214,14 +214,14 @@
 <script>
 import axios from 'axios';
 
-    export default{
-      head () {
-        return {
-        title: "Company application form • Great Minds Challenge Nairobi",
-        }
-      },
-  data () {
+  export default{
+    head () {
       return {
+        title: "Wildcard application form • Great Minds Challenge Nairobi",
+      }
+  },
+  data () {
+  return {
     form: {
       surname: '',
       names: '',
@@ -235,8 +235,6 @@ import axios from 'axios';
       description:'',
       terms: false,
     },
-
-
         rules: {
           surname: [val => (val || '').length > 0 || 'This field is required'],
           names: [val => (val || '').length > 0 || 'This field is required'],
@@ -247,26 +245,19 @@ import axios from 'axios';
 
         termsContent: `Esteemed Great Mind, by submitting this application form, you unconditionally and without any reservation agree to abide by all Great Minds Challenge TCs, as stated on the application form. You faithfully declare that all the information provided above is true to the best of your knowledge. You agree not to hold us liable for any accidents or incidents when travelling to and from Naivasha, during meet and greet and during your stay on the 3 exclusive days. You agree to fully take responsibility of your actions and indemnify Great Minds Challenge from any accidents or incidents. You declare to freely attend in good faith and be committed during the 2 months engagement with GMC. We commit to endeavour to offer you a world class experience observing international best practice standards.
         `,
-
         terms:false,
         snackbar: false,
         error:'',
-      }
-    },
+     }
+  },
 
-    methods: {
-      sendEmail() {
-        let emaildata = {
-          edata: {
-            recipient: this.form.email,
-            name: this.form.names
-         }
-        }
-        return axios.post('http://localhost:3000/mail?recipient=${edata.recipient}&name=${edata.name}');
+  methods: {
+   /*  sendEmail() {
+    return axios.get(`http://localhost:3000/send-email?email=${form.email}&name=${form.names}`)
+    }, */
 
-      },
-     submitForm() {
-       return axios.post('http://localhost:3000/company/post', {
+    submitForm() {
+      axios.post('http://localhost:3000/wildcard/post', {
         surname: this.form.surname,
         names: this.form.names,
         dob: this.form.dob,
@@ -276,17 +267,11 @@ import axios from 'axios';
         phone: this.form.phone,
         listAc: this.form.list,
         desc: this.form.desc
+      }).then(res =>{
+        this.$router.push('/welcome')
+      }).catch(err => {
+            this.errors.push(error);
       })
-      },
-      submit() {
-        axios.all([sendEmail(), submitForm()]).then(response => {
-            //this.$router.push(/registration/welcome)
-            console.log('successful');
-            this.snackbar = true
-        })
-        .catch(err => {
-            this.errors.push(error)
-        })
 
       },
     resetForm() {

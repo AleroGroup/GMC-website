@@ -3,7 +3,7 @@
     <v-flex fluid>
   <v-toolbar height="95">
         <v-toolbar-title >
-          <img src="../../assets/imgs/logo.png" alt="GMClogo" height="95" style="margin-left:8%;">
+          <img src="../assets/imgs/logo.png" alt="GMClogo" height="95" style="margin-left:8%;">
         </v-toolbar-title>
         <v-spacer />
           <v-btn to="/register" flat large color="#0074C1">Back</v-btn>
@@ -47,7 +47,12 @@
 
 <script>
 export default {
-
+name: 'welcome',
+head () {
+  return {
+    title: "Welcome • Great Minds Challenge Nairobi",
+  }
+  }
 }
 </script>
 

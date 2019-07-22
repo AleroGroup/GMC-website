@@ -38,6 +38,10 @@ _id: mongoose.Schema.Types.ObjectId,
         type: String,
 
     },
+    timeStamp: {
+        type : Date,
+        default: Date.now
+    }
 
 })
 

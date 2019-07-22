@@ -32,19 +32,16 @@ mongoose.connect(url, {
 
 
 
-const sendgridmail = require('@sendgrid/mail')
-const multer  = require('multer');
-
+const sendgridmail = require('@sendgrid/mail');
+sendgridmail.setApiKey(process.env.SENDGRID_API_KEY)
  //Mailing
-    app.post('/parse', function (req, res) {
-      sendgridmail.setApiKey(process.env.SENDGRID_API_KEY)
+    app.get('/send-email', (req, res) => {
 
-      var to = req.body.to
-      var name = req.body.name
+    //Get Variables from query string in the search bar
+    const { email, name } = req.query;
 
        const msg = {
-       to: to,
-       bcc: ['', ''],
+       to: email,
        from: 'Great Minds Challenge <info@greatmindschallenge.co.ke>',
        subject: 'Company Participant '+ name,
        html: `<div>
@@ -92,7 +89,7 @@ const multer  = require('multer');
        `
 }
  sendgridmail.send(msg)
- .then((msg) => console.log(text))
+ .then((msg) => console.log(text));
 
 })
 
@@ -103,7 +100,6 @@ async function start() {
 app.use(cors())
 app.use(morgan('dev'))
 app.use(bodyParser.json())
-app.use(multer());
 app.use('/company', companyRouter)
 app.use('/wildcard', wildcardRouter)
 

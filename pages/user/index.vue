@@ -1,11 +1,12 @@
 <template>
   <div id="app">
-  <v-app dark>
+  <v-app>
     <v-navigation-drawer
       clipped
       fixed
       v-model="drawer"
       app
+     
     >
       <v-list dense>
         <v-list-tile v-on:click="component = 'HomeMain'">
@@ -63,7 +64,7 @@
 
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar app fixed clipped-left>
+    <v-toolbar app fixed clipped-left color="#0074C1" dark>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>Dashboard</v-toolbar-title>
     </v-toolbar>
@@ -90,7 +91,7 @@ export default {
     'wildcardForms': wildcardForms,
     'HomeMain': HomeMain,
     'contactForm': contactForm,
-  
+
 
   },
   head () {
