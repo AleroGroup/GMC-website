@@ -1,113 +1,61 @@
 <template>
-  <div id="app">
-  <v-app>
-    <v-navigation-drawer
-      clipped
-      fixed
-      v-model="drawer"
-      app
-     
-    >
-      <v-list dense>
-        <v-list-tile v-on:click="component = 'HomeMain'">
-          <v-list-tile-action>
-            <v-icon>home</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Home</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
+<v-content>
+    <v-layout xs12 md4>
+       <v-flex fluid>
 
+    <v-layout column justify-center align-center style="margin-top:10%;">
+       <img src="../../assets/imgs/logo.png" alt="GMClogo" height="150" style="margin-left:2%; margin-bottom:9%;">
+       <div primary-title class="headline font-italic font-weight-medium green--text">
+         "The Future is now"
+       </div>
+    </v-layout>
+     <v-layout column justify-center align-center style="margin-top:10%;">
+        <v-progress-circular
+            :rotate="360"
+            :size="60"
+            :width="8"
+            :value="value"
+            color="blue"
+          ></v-progress-circular>
 
-      <v-list-group  no-action sub-group  value="true">
-          <template v-slot:activator>
-            <v-list-tile>
-                <v-list-tile-action>
-                  <v-icon>category</v-icon>
-                </v-list-tile-action>
-              <v-list-tile-title>Forms</v-list-tile-title>
-            </v-list-tile>
-          </template>
-
-          <v-list-tile v-on:click="component = 'companyForms'">
-            <v-list-tile-title>Company Forms</v-list-tile-title>
-            <v-list-tile-action>
-              <v-icon>group</v-icon>
-            </v-list-tile-action>
-          </v-list-tile>
-
-           <v-list-tile v-on:click="component ='wildcardForms'">
-            <v-list-tile-title>Wildcard Forms</v-list-tile-title>
-            <v-list-tile-action>
-              <v-icon>person</v-icon>
-            </v-list-tile-action>
-          </v-list-tile>
-        </v-list-group>
-
-        <v-list-tile v-on:click="component ='contactForm'">
-           <v-list-tile-action>
-              <v-icon>email</v-icon>
-           </v-list-tile-action>
-           <v-list-tile-content>
-             <v-list-tile-title>Contact Admin</v-list-tile-title>
-           </v-list-tile-content>
-        </v-list-tile>
-
-        <v-list-tile v-on:click="component ='google'">
-           <v-list-tile-action>
-              <v-icon>settings</v-icon>
-           </v-list-tile-action>
-           <v-list-tile-content>
-             <v-list-tile-title>Google Mail</v-list-tile-title>
-           </v-list-tile-content>
-        </v-list-tile>
-
-      </v-list>
-    </v-navigation-drawer>
-    <v-toolbar app fixed clipped-left color="#0074C1" dark>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title>Dashboard</v-toolbar-title>
-    </v-toolbar>
-    <v-container grid-list-xs>
-      <keep-alive>
-        <component v-bind:is="component"></component>
-      </keep-alive>
-    </v-container>
-
-  </v-app>
-</div>
+    </v-layout>
+  </v-flex>
+    </v-layout>
+</v-content>
 </template>
+ <style scoped>
+    .alignment{
+        text-align:center;
+        font-weight: 500;
+        font-size: 30px;
+        margin-top: 20%;
+        color: red;
+    }
 
+</style>
 <script>
-import DashHeader from '../../components/user_dash/header'
-import companyForms from '../user/dashboard/forms/company'
-import wildcardForms from '../user/dashboard/forms/wildcard'
-import HomeMain from '../user/dashboard/home'
-import contactForm from '../user/dashboard/contact'
 
 export default {
-  components: {
-    'companyForms': companyForms,
-    'wildcardForms': wildcardForms,
-    'HomeMain': HomeMain,
-    'contactForm': contactForm,
+    name: 'SplashScreen',
+    data (){
+        return{
+            interval: {},
+            value: 0
+        }
+    },
+    beforeDestory() {
+        clearInterval(this.interval)
+    },
 
+    mounted () {
+        this.interval = setInterval(() => {
+            if(this.value === 100){
+                return  this.$router.push('/user/dashhome')
 
-  },
-  head () {
-    return{
-      title: "Dashboard"
+            }
+            this.value += 10
+        }, 200)
     }
-  },
-  data () {
-    return {
-    drawer: true,
-    component: 'HomeMain'
-    }
-  }
 }
 </script>
 
-<style>
-
-</style>
