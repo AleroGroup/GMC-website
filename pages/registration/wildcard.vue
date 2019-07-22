@@ -164,6 +164,7 @@
            <v-flex xs12 sm8 md6 class="justify-center">
             <v-checkbox
               v-model="form.terms"
+              :rules="[v => !!v || 'You must agree to continue!']"
               color="green"
             >
               <template v-slot:label>
@@ -181,7 +182,7 @@
             <v-card-actions>
                <button flat @click="resetForm()">Cancel</button>
                <v-spacer></v-spacer>
-                <nuxt-link to="/welcome"><v-btn flat color="primary" @click="submitForm()">Apply</v-btn></nuxt-link>
+                <nuxt-link to="/welcome" style="text-decoration:none;"><v-btn  :disabled="!valid" flat color="primary" @click="submitForm()">Apply</v-btn></nuxt-link>
 
             </v-card-actions>
           </v-flex>
@@ -244,7 +245,6 @@ import axios from 'axios';
           dob: [val => (val || '').length > 0 || 'This field is required'],
           noc: [val => (val || '').length > 0 || 'This field is required'],
           jobPosition: [val => (val || '').length > 0 || 'This field is required'],
-          terms: [v => !!v || 'You must agree to continue!'],
         },
 
         termsContent: `Esteemed Great Mind, by submitting this application form, you unconditionally and without any reservation agree to abide by all Great Minds Challenge TCs, as stated on the application form. You faithfully declare that all the information provided above is true to the best of your knowledge. You agree not to hold us liable for any accidents or incidents when travelling to and from Naivasha, during meet and greet and during your stay on the 3 exclusive days. You agree to fully take responsibility of your actions and indemnify Great Minds Challenge from any accidents or incidents. You declare to freely attend in good faith and be committed during the 2 months engagement with GMC. We commit to endeavour to offer you a world class experience observing international best practice standards.
@@ -260,13 +260,12 @@ import axios from 'axios';
    /*  sendEmail() {
     return axios.get(`http://localhost:3000/send-email?email=${form.email}&name=${form.names}`)
     }, */
-    validate () {
-        if (this.$refs.form.validate()) {
-          this.snackbar = true
-        }
-    },
 
     submitForm() {
+
+      if (this.$refs.form.submitForm()) {
+          this.snackbar = true
+        }
       axios.post('http://localhost:3000/wildcard/post', {
         surname: this.form.surname,
         names: this.form.names,
@@ -285,7 +284,7 @@ import axios from 'axios';
 
       },
     resetForm() {
-      this.$refsform.resetFields()
+      this.$refs.form.resetFields()
       this.terms = false
       this.error = null
     }

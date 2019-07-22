@@ -36,7 +36,7 @@
                 <v-card-title>
                   <p >Please check your email for further instructions about your participation. If you have furture questions you can contact us<a href="mailto:info@greatmindsnairobi.co.ke" style="text-decoration:none;" class="font-weight-medium"> here</a>.</p>
                 </v-card-title>
-          <v-btn flat color="primary" to="/challenges" dark>View our previous Challenges</v-btn>
+          <v-btn flat color="primary" to="/" dark>go back to home page</v-btn>
         </v-layout>
       </v-flex>
 

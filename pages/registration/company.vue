@@ -13,7 +13,7 @@
        <v-container fill-height>
           <v-layout align-center>
            <v-flex text-xs-left>
-              <h3 class="display-1 font-weight-medium" style="color:#5C5C5C;">Company Participants</h3>
+              <h3 class="display-1 font-weight-medium" style="color:#5C5C5C;">Wildcard Participants</h3>
            </v-flex>
           </v-layout>
       </v-container>
@@ -33,7 +33,7 @@
 
     <v-flex  xs12 sm12 md12 class="justify-center" style="margin-top:5%;">
       <!-- This is the company form -->
-      <v-form ref="form">
+      <v-form ref="form" v-model="valid">
         <v-layout row wrap justify-center>
           <v-flex xs12 sm4 md3 style="margin-left: 0.8%;">
               <v-text-field
@@ -164,6 +164,7 @@
            <v-flex xs12 sm8 md6 class="justify-center">
             <v-checkbox
               v-model="form.terms"
+              :rules="[v => !!v || 'You must agree to continue!']"
               color="green"
             >
               <template v-slot:label>
@@ -181,7 +182,8 @@
             <v-card-actions>
                <button flat @click="resetForm()">Cancel</button>
                <v-spacer></v-spacer>
-                <button flat color="primary" to="/welcome" @click="submit()">Apply</button>
+                <nuxt-link to="/welcome" style="text-decoration:none;"><v-btn  :disabled="!valid" flat color="primary" @click="submitForm()">Apply</v-btn></nuxt-link>
+
             </v-card-actions>
           </v-flex>
         </v-layout>
@@ -214,15 +216,14 @@
 <script>
 import axios from 'axios';
 
-
-    export default{
-      head () {
-        return {
-        title: "Company application form • Great Minds Challenge Nairobi",
-        }
-      },
-  data () {
+  export default{
+    head () {
       return {
+        title: "Wildcard application form • Great Minds Challenge Nairobi",
+      }
+  },
+  data () {
+  return {
 
     form: {
       surname: '',
@@ -238,6 +239,7 @@ import axios from 'axios';
       terms: false,
     },
         rules: {
+
           surname: [val => (val || '').length > 0 || 'This field is required'],
           names: [val => (val || '').length > 0 || 'This field is required'],
           dob: [val => (val || '').length > 0 || 'This field is required'],
@@ -250,45 +252,42 @@ import axios from 'axios';
         terms:false,
         snackbar: false,
         error:'',
-
-
+        valid: true,
      }
   },
 
   methods: {
-   sendEmail() {
+   /*  sendEmail() {
     return axios.get(`http://localhost:3000/send-email?email=${form.email}&name=${form.names}`)
-    },
+    }, */
 
     submitForm() {
-     return axios.post('http://localhost:3000/wildcard/post', {
-      surname: this.form.surname,
-      names: this.form.names,
-      dob: this.form.dob,
-      noc: this.form.noc,
-      jobPosition: this.form.jobPosition,
-      email: this.form.email,
-      phone: this.form.phone,
-      listAc: this.form.list,
-      desc: this.form.desc
-      })
-    },
 
-    submit() {
-      axios.all([sendEmail(),submitForm()])
-      .then(res =>{
-          console.log('Success')
+      if (this.$refs.form.submitForm()) {
+          this.snackbar = true
+        }
+      axios.post('http://localhost:3000/company/post', {
+        surname: this.form.surname,
+        names: this.form.names,
+        dob: this.form.dob,
+        noc: this.form.noc,
+        jobPosition: this.form.jobPosition,
+        email: this.form.email,
+        phone: this.form.phone,
+        listAc: this.form.list,
+        desc: this.form.desc
+      }).then(res =>{
+        this.$router.push('/welcome')
       }).catch(err => {
             this.errors.push(error);
       })
-      }
-    },
-    
+
+      },
     resetForm() {
-      this.$refsform.resetFields()
+      this.$refs.form.resetFields()
       this.terms = false
       this.error = null
     }
   }
-
+}
 </script>
