@@ -181,7 +181,7 @@
             <v-card-actions>
                <button flat @click="resetForm()">Cancel</button>
                <v-spacer></v-spacer>
-                <button flat color="primary" @click="submitForm()">Apply</button>
+                <button flat color="primary" to="/welcome" @click="submit()">Apply</button>
             </v-card-actions>
           </v-flex>
         </v-layout>
@@ -256,12 +256,12 @@ import axios from 'axios';
   },
 
   methods: {
-   /*  sendEmail() {
+   sendEmail() {
     return axios.get(`http://localhost:3000/send-email?email=${form.email}&name=${form.names}`)
-    }, */
+    },
 
     submitForm() {
-     axios.post('http://localhost:3000/wildcard/post', {
+     return axios.post('http://localhost:3000/wildcard/post', {
       surname: this.form.surname,
       names: this.form.names,
       dob: this.form.dob,
@@ -271,13 +271,19 @@ import axios from 'axios';
       phone: this.form.phone,
       listAc: this.form.list,
       desc: this.form.desc
-      }).then(res =>{
-        this.$router.push('/welcome')
+      })
+    },
+
+    submit() {
+      axios.all([sendEmail(),submitForm()])
+      .then(res =>{
+          console.log('Success')
       }).catch(err => {
             this.errors.push(error);
       })
       }
     },
+    
     resetForm() {
       this.$refsform.resetFields()
       this.terms = false

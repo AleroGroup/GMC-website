@@ -20,7 +20,7 @@
         </v-card>
     </v-layout>
     <v-layout row wrap>
-
+<v-btn to="/welcome" color="success">text</v-btn>
     </v-layout>
   </v-content>
 </template>

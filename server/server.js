@@ -32,13 +32,14 @@ mongoose.connect(url, {
 
 
 
-const sendgridmail = require('@sendgrid/mail');
+/* const sendgridmail = require('@sendgrid/mail');
 sendgridmail.setApiKey(process.env.SENDGRID_API_KEY)
  //Mailing
     app.get('/send-email', (req, res) => {
 
     //Get Variables from query string in the search bar
     const { email, name } = req.query;
+    console.log('req ${req}')
 
        const msg = {
        to: email,
@@ -91,7 +92,7 @@ sendgridmail.setApiKey(process.env.SENDGRID_API_KEY)
  sendgridmail.send(msg)
  .then((msg) => console.log(text));
 
-})
+}) */
 
 
 

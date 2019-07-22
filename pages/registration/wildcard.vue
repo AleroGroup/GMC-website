@@ -181,7 +181,7 @@
             <v-card-actions>
                <button flat @click="resetForm()">Cancel</button>
                <v-spacer></v-spacer>
-                <button flat color="primary" @click="submitForm()">Apply</button>
+                <button flat color="primary" to="/welcome" @click="submitForm()">Apply</button>
             </v-card-actions>
           </v-flex>
         </v-layout>
