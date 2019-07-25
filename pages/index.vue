@@ -50,8 +50,14 @@ export default {
     mounted () {
         this.interval = setInterval(() => {
             if(this.value === 100){
-                return  this.$router.push('/home')
 
+            let to = '/home'    // this is dynamic in my code...
+           if (this.$router.currentRoute.path === to) {
+        this.$refs.page.$forceUpdate()
+       } else {
+        this.$router.push(to)
+      }
+  
             }
             this.value += 10
         }, 200)

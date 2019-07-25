@@ -6,7 +6,7 @@
           <img src="../assets/imgs/logo.png" alt="GMClogo" height="95" style="margin-left:8%;">
         </v-toolbar-title>
         <v-spacer />
-        <nuxt-link to="/"><v-btn flat large color="#0074C1">Back to home</v-btn><!-- </nuxt-link> -->
+        <nuxt-link to="/home"><v-btn flat large color="#0074C1">Back to home</v-btn></nuxt-link>
     </v-toolbar>
   </v-flex>
 
@@ -47,8 +47,18 @@ import FooterOther from '../components/Footer_other'
            return {
              title: 'Error • Great Minds Challenge Nairobi'
              }
-        }
-        //
+        },
+        data () {
+     return {}
+     let to = '/home'    // this is dynamic in my code...
+      if (this.$router.currentRoute.path === to) {
+        this.$refs.page.$forceUpdate()
+       } else {
+        this.$router.push(to)
+      }
+
+  }
+
     }
 </script>
 

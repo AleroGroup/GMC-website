@@ -8,7 +8,8 @@
     "dev": "cross-env NODE_ENV=development nodemon server/server.js --watch server",
     "build": "nuxt build",
     "start": "cross-env NODE_ENV=production node server/server.js",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "clear:babel-cache": "rimraf -rf ./node_modules/.cache/babel-loader"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
@@ -29,6 +30,7 @@
     "nuxt": "^2.4.0",
     "nuxt-env": "^0.1.0",
     "nuxt-fontawesome": "^0.4.0",
+    "rimraf": "^2.6.3",
     "sendgrid": "^5.2.3",
     "validator": "^11.1.0",
     "vuetify": "^1.5.5",

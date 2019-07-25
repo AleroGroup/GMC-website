@@ -206,9 +206,17 @@ export default {
           }
         ]
       }
-    },
-   
-}
+
+      let to = '/home'    // this is dynamic in my code...
+      if (this.$router.currentRoute.path === to) {
+        this.$refs.page.$forceUpdate()
+      } else {
+    this.$router.push(to)
+    }
+  }
+
+    }
+
 </script>
 
 <style>
