@@ -133,7 +133,7 @@
       </v-img>
     </v-layout>
 
-  <v-flex xs12 md4 lg2 justify-center hidden-xs-only style="margin-top:5%;">
+  <v-flex xs12 md4 lg12 justify-center hidden-xs-only style="margin-top:5%;">
   <v-card-title class="layout justify-center display-1 font-weight-bold">
     Partners
   </v-card-title>
