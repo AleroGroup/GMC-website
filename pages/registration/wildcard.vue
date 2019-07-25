@@ -60,6 +60,7 @@
             <v-text-field
               v-model="form.dob"
               :rules="rules.dob"
+              name="dob"
               color="primary"
               hint="dd/mm/yyyy"
               required
@@ -118,21 +119,44 @@
           </v-flex>
         </v-layout>
 
-         <v-layout justify-center >
-           <v-flex xs12 sm8 md6 class="justify-center">
-             <v-card class="elevation-0 transparent">
+        <v-layout justify-center >
+          <v-flex xs12 sm8 md6 class="justify-center">
+          <v-card class="elevation-0 transparent" v-if="!image">
                <v-card-title class="subheading card-main">
                   Upload your photo
                </v-card-title>
-               <v-btn large color="#0074C1" style="border-radius:6px;" dark>Select from file</v-btn>
+               <img
+                 contain
+                :src="imageUrl" height="150" v-if="imageUrl" />
+               <v-text-field
+                  label="Select Image"
+                  v-model="ImageName" prepend-icon='attach_file'
+                  @click='pickFile' >
+                </v-text-field>
+                  <input
+					        	type="file"
+						        style="display: none"
+						        ref="image"
+						        accept="image/*"
+						        @change="onFilePicked">
              </v-card>
 
-            <v-card class="elevation-0 transparent">
+            <!-- <v-card class="elevation-0 transparent">
                <v-card-title class="subheading card-main">
                   Upload your CV
                </v-card-title>
-               <v-btn large color="#0074C1" style="border-radius:6px;" dark>Select from file</v-btn>
-             </v-card>
+               <v-text-field
+                  label="Select CV doc"
+                  v-model="cvFileName" prepend-icon='attach_file'
+                  @click='cvFile' >
+                </v-text-field>
+                  <input
+					        	type="file"
+						        style="display: none"
+						        ref="application"
+						        accept="application/*"
+						        @change="onFileChange">
+             </v-card> -->
           </v-flex>
         </v-layout>
 
@@ -224,7 +248,6 @@ import axios from 'axios';
   },
   data () {
   return {
-
     form: {
       surname: '',
       names: '',
@@ -236,6 +259,7 @@ import axios from 'axios';
       phone: '',
       list: '',
       description:'',
+      ppic: '',
       terms: false,
     },
         rules: {
@@ -253,6 +277,9 @@ import axios from 'axios';
         snackbar: false,
         error:'',
         valid: true,
+        imageUrl: '',
+         ImageName: '',
+      //  cvFileName: ''
      }
   },
 
@@ -260,13 +287,62 @@ import axios from 'axios';
    /*  sendEmail() {
     return axios.get(`http://localhost:3000/send-email?email=${form.email}&name=${form.names}`)
     }, */
+    pickFile () {
+      this.$refs.image.click ()
+    },
+    onFilePicked (e) {
+			const files = e.target.files
+			if(files[0] !== undefined) {
+				this.ImageName = files[0].name
+				if(this.ImageName.lastIndexOf('.') <= 0) {
+					return
+				}
+				const fr = new FileReader ()
+				fr.readAsDataURL(files[0])
+				fr.addEventListener('load', () => {
+					this.imageUrl = fr.result
+					this.form.ppic = files[0] // this is an image file that can be sent to server...
+        })
+        } else {
+				//this.imageName = ''
+        //this.imageUrl = ''
+        console.log('not posted')
+			}
+    },
+
+   /* cvFile () {
+      this.$refs.application.click ()
+    },
+     onFileChange (e) {
+			const files = e.target.files
+			if(files[0] !== undefined) {
+				this.form.cv = files[0].name
+				if(this.form.cv.lastIndexOf('.') <= 0) {
+					return
+				}
+				const fr = new FileReader ()
+				fr.readAsDataURL(files[0])
+				fr.addEventListener('load', () => {
+					this.form.cv = files[0] // this is an image file that can be sent to server...
+        })
+      }  else {
+				//this.cvFileName = ''
+        //this.cvFile = ''
+        console.log('not posted')
+        }
+    }, */
 
     submitForm() {
+      const formData = new FormData()
+      formData.append('ppic', this.form.ppic)
+
+      //const formDataii = new FormData()
+     //formDataii.append('cv', this.form.cv, this.form.cv.name)
 
       if (this.$refs.form.submitForm()) {
           this.snackbar = true
         }
-      axios.post('http://localhost:3000/wildcard/post', {
+      axios.post('http://localhost:3000/wildcard/post',formData, {
         surname: this.form.surname,
         names: this.form.names,
         dob: this.form.dob,

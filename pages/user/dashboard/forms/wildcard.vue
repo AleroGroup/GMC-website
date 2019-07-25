@@ -8,22 +8,29 @@
       </v-layout>
     </v-responsive>
     <v-divider></v-divider>
-    <v-layout column="">
+    <v-layout row wrap>
        <v-flex xs12 md6 >
-        <v-card v-for="wildcard of wildcards" v-bind:item ="wildcards"  v-bind:index="index" v-bind:key="wildcard._id" width="200" height="200"
+         <v-layout column>
+            <v-card v-for="wildcard of wildcards" v-bind:item ="wildcards"  v-bind:index="index" v-bind:key="wildcard._id" width="400"
         style="margin:20px">
 
           <!--Card title-->
           <v-card-title primary-title>
             <div class="title"><p>{{ wildcard.surname }},</p> {{ wildcard.names }}</div>
-            <span class="grey--text">{{ wildcard.timeStamp }} </span>
+
           </v-card-title>
+           <v-card-text>
+             <div class="subtitle grey--text">{{ wildcard.timeStamp }} </div>
+            <div class="font-weight-medium"> <p>{{ wildcard.email}}</p></div>
+          </v-card-text>
         <v-card-actions>
-          <v-btn disabled flat color="orange">View</v-btn>
+          <v-btn disabled flat color="blue darken-2">View</v-btn>
          <!--  <v-btn flat color="danger" @click="deleteData(wildcard, wildcard._id)">Delete</v-btn> -->
         </v-card-actions>
         </v-card>
-         </v-flex>
+      </v-layout>
+
+    </v-flex>
     </v-layout>
     <v-layout row wrap>
     </v-layout>

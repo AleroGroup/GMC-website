@@ -20,12 +20,10 @@ jobPosition: {
 email: {
   type: String,
 },
-p_pic: {
-  data: Buffer,
+ppic: {
   type: String
 },
 cv: {
-  data: Buffer,
   type: String
 },
 phone: {

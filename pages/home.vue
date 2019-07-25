@@ -57,7 +57,7 @@
         </v-flex>
       <v-layout justify-center align-content-center align-center style="background:#F5F5F5; margin-top:0.01%;height:120px;">
        <v-flex xs12 sm2 md1>
-         <v-btn to="/register" large round color="blue" dark> Apply now</v-btn>
+        <nuxt-link to="/register" style="text-decoration:none;"> <v-btn  large round color="blue" dark> Apply now</v-btn> </nuxt-link>
        </v-flex>
      </v-layout>
     </v-layout>
@@ -124,7 +124,7 @@
           <v-flex xs10 sm8 >
             <v-card-text style="margin-left:6%;">
                <div class="headline font-weight-medium" style="color:#202565;"> Great Minds Challenge is a two months program, with an exclusive 3 days of impactful challenge. The challenge is focused on growing a New Generation of Leaders with New Mindset.</div>
-             <v-btn to="/register" outline  color="#202565" class="" style="margin-top:4%;">Get Started</v-btn>
+              <nuxt-link to="/register" style="text-decoration:none;"><v-btn outline  color="#202565" class="" style="margin-top:4%;">Get Started</v-btn></nuxt-link>
             </v-card-text>
           </v-flex>
           <!-------------------------->
@@ -147,8 +147,8 @@
       style="height:190px"
     ></v-carousel-item>
   </v-carousel>
- 
-  
+
+
   </v-layout>
   </v-flex>
 
@@ -164,6 +164,7 @@ import Footer from '../components/Footer.vue'
 import HeaderMain from "../components/header_one.vue"
 
 export default {
+
   components: {
     HeaderMain,
     Footer
@@ -175,6 +176,7 @@ export default {
   },
    data () {
       return {
+
         items: [
           {
             src: 'https://images.ctfassets.net/pinw8ucllktt/6aOZfH87XoB0reAQeXcidm/6af343393edfee508fe9eceaec72af51/Vimal.svg'
@@ -204,8 +206,8 @@ export default {
           }
         ]
       }
-    }
-
+    },
+   
 }
 </script>
 

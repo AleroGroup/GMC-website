@@ -17,6 +17,7 @@
           <v-card-title primary-title>
             <div class="headline">{{ company.surname }}, {{ company.names }}</div>
           </v-card-title>
+         
         </v-card>
     </v-layout>
     <v-layout row wrap>
