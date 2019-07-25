@@ -121,7 +121,7 @@
 
         <v-layout row style="margin-top:8%;" text-xs-left text-lg-left>
          <!-------------------------->
-          <v-flex xs10 sm8 >
+          <v-flex xs12 md4 >
             <v-card-text style="margin-left:6%;">
                <div class="headline font-weight-medium" style="color:#202565;"> Great Minds Challenge is a two months program, with an exclusive 3 days of impactful challenge. The challenge is focused on growing a New Generation of Leaders with New Mindset.</div>
               <nuxt-link to="/register" style="text-decoration:none;"><v-btn outline  color="#202565" class="" style="margin-top:4%;">Get Started</v-btn></nuxt-link>
@@ -133,7 +133,7 @@
       </v-img>
     </v-layout>
 
-  <v-flex xs12 md12 justify-center hidden-xs-only style="margin-top:5%;">
+  <v-flex xs12 md4 lg2 justify-center hidden-xs-only style="margin-top:5%;">
   <v-card-title class="layout justify-center display-1 font-weight-bold">
     Partners
   </v-card-title>

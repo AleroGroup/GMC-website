@@ -101,6 +101,7 @@ async function start() {
 app.use(cors())
 app.use(morgan('dev'))
 app.use(bodyParser.json())
+//app.use('/uploads', express.static('uploads'));
 app.use('/company', companyRouter)
 app.use('/wildcard', wildcardRouter)
 

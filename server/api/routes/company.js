@@ -2,10 +2,34 @@
 const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
-
+const multer = require('multer')
 const Company = require('../models/company')
 
+
 //GET the form by id
+ const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, './uploads/');
+  },
+  filename: function(req, file, cb) {
+    cb(null, new Date().toISOString() + file.originalname);
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  // reject a file
+  if (file.mimetype === 'video/mp4') {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+const upload = multer({
+  storage: storage,
+  fileFilter: fileFilter
+});
+
 
 router.get('/:comapanyId', (req, res, next) => {
     const id = req.params.comapanyId;
@@ -36,7 +60,7 @@ router.get('/:comapanyId', (req, res, next) => {
  });
 
 //POST
-router.post('/post', (req, res, next) => {
+router.post('/post',upload.single('ppic'), (req, res, next) => {
     const company = new Company({
         _id: new mongoose.Types.ObjectId(),
         surname: req.body.surname ,
@@ -47,21 +71,23 @@ router.post('/post', (req, res, next) => {
         email: req.body.email,
         phone: req.body.phone,
         listAc:req.body.listAc,
-        desc: req.body.desc
+        desc: req.body.desc,
+        ppic: req.file.path
     })
-    company.save().then(result => {
-        console.log(result);
-        res.status(201).json({
-     message: 'company registered successfully'
-        });
-    }).catch(err => {
-        console.log(err)
-        res.status(500).json({
-          error: err
-    })
+    company
+    .save()
+    .then(result => {
+    console.log(result);
+    res.status(201).json({
+ message: 'wildcard registered successfully'
+}).catch(error => {
+    console.log(error)
+    res.status(500).json({
+      error: err
 })
-
 })
+})
+});
 
 //UPDATE
 

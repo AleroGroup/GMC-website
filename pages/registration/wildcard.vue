@@ -33,7 +33,7 @@
 
     <v-flex  xs12 sm12 md12 class="justify-center" style="margin-top:5%;">
       <!-- This is the company form -->
-      <v-form ref="form" v-model="valid">
+      <form enctype="multipart/form-data" ref="form" >
         <v-layout row wrap justify-center>
           <v-flex xs12 sm4 md3 style="margin-left: 0.8%;">
               <v-text-field
@@ -127,11 +127,12 @@
                </v-card-title>
                <img
                  contain
-                :src="imageUrl" height="150" v-if="imageUrl" />
+                :src="imageUrl" height="150" v-if="imgUrl" />
                <v-text-field
                   label="Select Image"
-                  v-model="ImageName" prepend-icon='attach_file'
-                  @click='pickFile' >
+                  v-model="imgName"
+                  prepend-icon='attach_file'
+                  @click='imgFile' >
                 </v-text-field>
                   <input
 					        	type="file"
@@ -141,13 +142,14 @@
 						        @change="onFilePicked">
              </v-card>
 
-            <!-- <v-card class="elevation-0 transparent">
+           <v-card class="elevation-0 transparent">
                <v-card-title class="subheading card-main">
                   Upload your CV
                </v-card-title>
                <v-text-field
                   label="Select CV doc"
-                  v-model="cvFileName" prepend-icon='attach_file'
+                  v-model="cvName"
+                  prepend-icon='attach_file'
                   @click='cvFile' >
                 </v-text-field>
                   <input
@@ -156,7 +158,7 @@
 						        ref="application"
 						        accept="application/*"
 						        @change="onFileChange">
-             </v-card> -->
+             </v-card>
           </v-flex>
         </v-layout>
 
@@ -212,7 +214,7 @@
           </v-flex>
         </v-layout>
         <p v-if="error" style="color:red;"><strong>Error {{ error.status }}</strong><br>{{ error.data }}</p>
-      </v-form>
+      </form>
     </v-flex>
   </v-content>
 
@@ -260,6 +262,7 @@ import axios from 'axios';
       list: '',
       description:'',
       ppic: '',
+      cv:'',
       terms: false,
     },
         rules: {
@@ -271,15 +274,16 @@ import axios from 'axios';
           jobPosition: [val => (val || '').length > 0 || 'This field is required'],
         },
 
-        termsContent: `Esteemed Great Mind, by submitting this application form, you unconditionally and without any reservation agree to abide by all Great Minds Challenge TCs, as stated on the application form. You faithfully declare that all the information provided above is true to the best of your knowledge. You agree not to hold us liable for any accidents or incidents when travelling to and from Naivasha, during meet and greet and during your stay on the 3 exclusive days. You agree to fully take responsibility of your actions and indemnify Great Minds Challenge from any accidents or incidents. You declare to freely attend in good faith and be committed during the 2 months engagement with GMC. We commit to endeavour to offer you a world class experience observing international best practice standards.
+        termsContent: `Esteemed Great Mind, by submitting this application form, you unconditionally and without any reservation agree to abide by all Great Minds Challenge TCs. You faithfully declare that all the information provided above is true to the best of your knowledge. You agree not to hold us liable for any accidents or incidents when travelling to and from Naivasha, during meet and greet and during your stay on the 3 exclusive days. You agree to fully take responsibility of your actions and indemnify Great Minds Challenge from any accidents or incidents. You declare to freely attend in good faith and be committed during the 2 months engagement with GMC. We commit to endeavour to offer you a world class experience observing international best practice standards.
         `,
         terms:false,
         snackbar: false,
         error:'',
         valid: true,
-        imageUrl: '',
-         ImageName: '',
-      //  cvFileName: ''
+        imgUrl: '',
+        imgName: '',
+        cvUrl: '',
+        cvName:''
      }
   },
 
@@ -287,20 +291,20 @@ import axios from 'axios';
    /*  sendEmail() {
     return axios.get(`http://localhost:3000/send-email?email=${form.email}&name=${form.names}`)
     }, */
-    pickFile () {
+    imgFile () {
       this.$refs.image.click ()
     },
     onFilePicked (e) {
 			const files = e.target.files
 			if(files[0] !== undefined) {
-				this.ImageName = files[0].name
-				if(this.ImageName.lastIndexOf('.') <= 0) {
+				this.imgName = files[0].name
+				if(this.imgName.lastIndexOf('.') <= 0) {
 					return
 				}
 				const fr = new FileReader ()
 				fr.readAsDataURL(files[0])
 				fr.addEventListener('load', () => {
-					this.imageUrl = fr.result
+					this.imgUrl = fr.result
 					this.form.ppic = files[0] // this is an image file that can be sent to server...
         })
         } else {
@@ -310,19 +314,20 @@ import axios from 'axios';
 			}
     },
 
-   /* cvFile () {
+ cvFile () {
       this.$refs.application.click ()
     },
      onFileChange (e) {
 			const files = e.target.files
 			if(files[0] !== undefined) {
-				this.form.cv = files[0].name
-				if(this.form.cv.lastIndexOf('.') <= 0) {
+				this.cvName= files[0].name
+				if(this.cvName.lastIndexOf('.') <= 0) {
 					return
 				}
 				const fr = new FileReader ()
 				fr.readAsDataURL(files[0])
 				fr.addEventListener('load', () => {
+          this.cvUrl = fr.result
 					this.form.cv = files[0] // this is an image file that can be sent to server...
         })
       }  else {
@@ -330,19 +335,19 @@ import axios from 'axios';
         //this.cvFile = ''
         console.log('not posted')
         }
-    }, */
+    },
 
     submitForm() {
       const formData = new FormData()
       formData.append('ppic', this.form.ppic)
 
-      //const formDataii = new FormData()
-     //formDataii.append('cv', this.form.cv, this.form.cv.name)
+      const formDataii = new FormData()
+      formDataii.append('cv', this.form.cv, this.form.cv.name)
 
       if (this.$refs.form.submitForm()) {
           this.snackbar = true
         }
-      axios.post('http://localhost:3000/wildcard/post',formData, {
+      axios.post('http://localhost:3000/wildcard/post',formData, formDataii, {
         surname: this.form.surname,
         names: this.form.names,
         dob: this.form.dob,
@@ -351,7 +356,9 @@ import axios from 'axios';
         email: this.form.email,
         phone: this.form.phone,
         listAc: this.form.list,
-        desc: this.form.desc
+        desc: this.form.desc,
+        ppic: this.form.ppic,
+        cv: this.form.cv
       }).then(res =>{
         this.$router.push('/welcome')
       }).catch(err => {

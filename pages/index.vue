@@ -57,10 +57,10 @@ export default {
        } else {
         this.$router.push(to)
       }
-  
+
             }
             this.value += 10
-        }, 200)
+        }, 97)
     }
 }
 </script>

@@ -71,7 +71,7 @@ router.get('/:wildcardId', (req, res, next) => {
 
 
 //POST
-router.post('/post', uploadPhoto.single('ppic'), uploadDoc.single('cv'), (req, res, next) => {
+router.post('/post', (req, res, next) => {
     const wildcard = new Wildcard({
         _id: new mongoose.Types.ObjectId(),
         surname: req.body.surname ,

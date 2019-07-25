@@ -20,13 +20,11 @@ _id: mongoose.Schema.Types.ObjectId,
     email: {
         type: String,
     },
-    p_pic: {
-        data: Buffer,
-        type: String
+    ppic: {
+      type: String
     },
     cv: {
-        data: Buffer,
-        type: String
+      type: String
     },
     phone: {
         type: String,
