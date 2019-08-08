@@ -57,7 +57,7 @@
         </v-flex>
       <v-layout justify-center align-content-center align-center style="background:#F5F5F5; margin-top:0.01%;height:120px;">
        <v-flex xs12 sm2 md1>
-        <nuxt-link to="/register" style="text-decoration:none;"> <v-btn  large round color="blue" dark> Apply now</v-btn> </nuxt-link>
+        <nuxt-link to="/register" style="text-decoration:none;"> <v-btn large round color="blue" dark> Apply now</v-btn> </nuxt-link>
        </v-flex>
      </v-layout>
     </v-layout>
@@ -116,37 +116,54 @@
         </v-flex>
       </v-layout>
 
-    </v-layout justify-center>
-      <v-img src="https://images.ctfassets.net/pinw8ucllktt/28RVgHDvBY0EzVin4FyINn/8783dfc9b36abe3e66a84b4e800ee4f2/swash.svg" style="margin-top:2%;">
+    </v-layout justify-center >
+      <v-img src="https://images.ctfassets.net/pinw8ucllktt/28RVgHDvBY0EzVin4FyINn/8783dfc9b36abe3e66a84b4e800ee4f2/swash.svg" style="margin-top:2%;margin-bottom:5%;">
 
-        <v-layout row style="margin-top:8%;" text-xs-left text-lg-left>
+        <v-layout row style="margin-top:5%;" text-xs-left text-lg-left align-center>
          <!-------------------------->
-          <v-flex xs12 md4 >
+          <v-flex xs11 md8 >
             <v-card-text style="margin-left:6%;">
                <div class="headline font-weight-medium" style="color:#202565;"> Great Minds Challenge is a two months program, with an exclusive 3 days of impactful challenge. The challenge is focused on growing a New Generation of Leaders with New Mindset.</div>
-              <nuxt-link to="/register" style="text-decoration:none;"><v-btn outline  color="#202565" class="" style="margin-top:4%;">Get Started</v-btn></nuxt-link>
+              <nuxt-link to="/register" style="text-decoration:none;"><v-btn outline large color="#202565" class="" style="margin-top:4%;">Get Started</v-btn></nuxt-link>
             </v-card-text>
           </v-flex>
           <!-------------------------->
+         <!-------------------------->
+          <v-flex xs11 md8 hidden-sm-and-down>
+            <v-card-media
+            src="https://images.ctfassets.net/pinw8ucllktt/6JHwk2ypecZrTwPbnhdYYd/123edbff5d6556871f3b90a62ea7cfb1/img.png" 
+            style="margin-left:6%;margin-bottom:7%;">
+            </v-card-media>
+          </v-flex>
+          <!-------------------------->
         </v-layout>
+
     <!------------------------------------------>
       </v-img>
-    </v-layout>
 
-  <v-flex xs9 md4 lg8
-   justify-center hidden-xs-only style="margin-top:5%;">
-  <v-card-title class="layout justify-center display-1 font-weight-bold">
+
+  <v-layout column justify-center hidden-md-and-down style="margin-top:4%;">
+  <v-card-title class="layout justify-center display-1 font-weight-bold" style="margin-bottom:3%;">
     Partners
   </v-card-title>
-  <v-layout>
+  <v-layout justify-center>
+    <v-flex xs10 style="margin-left:20%;">
+    <v-carousel hide-delimiters hide-controls flat class="elevation-0 justify-center" style="margin-top:1%;width:auto;hight:300px;"
+    >
+    <v-carousel-item
+    >
+    <v-img src="https://images.ctfassets.net/pinw8ucllktt/703ruGDou0XRzTqDV3j57o/848968f8b2f433150e901782d623e490/one.png" width="1080"/>
+    </v-carousel-item>
+    <v-carousel-item
+    > 
+    <v-img src="https://images.ctfassets.net/pinw8ucllktt/6ryffD1y7TjiBgDoOyFWOZ/9ec3f7f9ed5634c5a3ac4e5d9396b465/two.png" width="1080"></v-img>
+    </v-carousel-item>
+    </v-carousel>
+    </v-flex>
+    </v-layout>
+   </v-layout>
 
-
-  </v-layout>
-  </v-flex>
-  
-  </v-layout>
   </v-content>
-
   <Footer />
 </div>
 </template>
@@ -175,6 +192,7 @@ export default {
           },
           {
             src: 'https://images.ctfassets.net/pinw8ucllktt/6qweuhyFBbd73HD2KgkSPE/a7fe8970142b03643cb03c813db868e7/Arthue.svg'
+
           },
           {
             src: 'https://images.ctfassets.net/pinw8ucllktt/1HOMv8MHfD6VcR1lZqrm8g/4dbb9492d7498b6f542b80cbac6a1b4b/Susan.svg'
@@ -187,14 +205,6 @@ export default {
           },
           {
             src: 'https://images.ctfassets.net/pinw8ucllktt/36CrM3LQPVoOAJXxHRMPzc/bfb5c35f7ee7b7f231be82424c997f10/Decimar_Ogutu.svg'
-          }
-        ],
-        logos: [
-          {
-              src: 'https://images.ctfassets.net/pinw8ucllktt/703ruGDou0XRzTqDV3j57o/848968f8b2f433150e901782d623e490/one.png'
-          },
-          {
-              src: 'https://images.ctfassets.net/pinw8ucllktt/6ryffD1y7TjiBgDoOyFWOZ/9ec3f7f9ed5634c5a3ac4e5d9396b465/two.png'
           }
         ]
       }
