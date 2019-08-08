@@ -1,17 +1,15 @@
-
 const express = require('express')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
-
 
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const mongoose = require('mongoose')
-mongoose.Promise = require("bluebird");
+mongoose.Promise = require('bluebird')
 
 const app = express()
- // import database configuration
+// import database configuration
 
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')
@@ -22,15 +20,15 @@ require('dotenv').config()
 const companyRouter = require('./api/routes/company')
 const wildcardRouter = require('./api/routes/wildcard')
 
+let mongo = process.env.MONGODB_PASS
 
-let mongo= process.env.MONGODB_PASS
-
-const url = 'mongodb+srv://alero:'+mongo+'@cluster0-jsnt7.mongodb.net/userForms?retryWrites=true&w=majority';
+const url =
+  'mongodb+srv://alero:' +
+  mongo +
+  '@cluster0-jsnt7.mongodb.net/userForms?retryWrites=true&w=majority'
 mongoose.connect(url, {
   useNewUrlParser: true
-});
-
-
+})
 
 /* const sendgridmail = require('@sendgrid/mail');
 sendgridmail.setApiKey(process.env.SENDGRID_API_KEY)
@@ -94,28 +92,34 @@ sendgridmail.setApiKey(process.env.SENDGRID_API_KEY)
 
 }) */
 
-
-
 async function start() {
-//Middlewares
-app.use(cors())
-app.use(morgan('dev'))
-app.use(bodyParser.json())
-//app.use('/uploads', express.static('uploads'));
-app.use('/company', companyRouter)
-app.use('/wildcard', wildcardRouter)
+  //Middlewares
+  app.use(cors())
+  app.use(morgan('dev'))
+  app.use(bodyParser.json())
+  //app.use('/uploads', express.static('uploads'));
+  app.use('/company', companyRouter)
+  app.use('/wildcard', wildcardRouter)
 
-
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-  if (req.method === 'OPTIONS'){
-    res.header('Access-Control-Allow-Methods', 'PUT', 'POST', 'PATCH', 'DELETE', 'GET')
-    return res.status(200).json({})
-}
-next()
-})
-
+  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header(
+      'Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, Accept'
+    )
+    if (req.method === 'OPTIONS') {
+      res.header(
+        'Access-Control-Allow-Methods',
+        'PUT',
+        'POST',
+        'PATCH',
+        'DELETE',
+        'GET'
+      )
+      return res.status(200).json({})
+    }
+    next()
+  })
 
   // Init Nuxt.js
   const nuxt = new Nuxt(config)
@@ -132,7 +136,6 @@ next()
 
   // Give nuxt middleware to express
   app.use(nuxt.render)
-
 
   // Listen the server
   app.listen(port, host)

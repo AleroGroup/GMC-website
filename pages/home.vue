@@ -133,25 +133,17 @@
       </v-img>
     </v-layout>
 
-  <v-flex xs12 md4 lg12 justify-center hidden-xs-only style="margin-top:5%;">
+  <v-flex xs9 md4 lg8
+   justify-center hidden-xs-only style="margin-top:5%;">
   <v-card-title class="layout justify-center display-1 font-weight-bold">
     Partners
   </v-card-title>
   <v-layout>
-    <v-carousel hide-delimiters hide-controls flat class="elevation-0 justify-center" style="margin-top:2%;">
-    <v-carousel-item
-      v-for="(logo,i) in logos"
-      :key="i"
-      :src="logo.src"
-      flat
-      style="height:190px"
-    ></v-carousel-item>
-  </v-carousel>
 
 
   </v-layout>
   </v-flex>
-
+  
   </v-layout>
   </v-content>
 
@@ -199,19 +191,19 @@ export default {
         ],
         logos: [
           {
-              src: 'https://images.ctfassets.net/pinw8ucllktt/44B3uuULMLXEDJrhfYazyZ/fa5fd354683d830fd884dacd38447779/Group_142.svg'
+              src: 'https://images.ctfassets.net/pinw8ucllktt/703ruGDou0XRzTqDV3j57o/848968f8b2f433150e901782d623e490/one.png'
           },
           {
-              src: 'https://images.ctfassets.net/pinw8ucllktt/4pmXS2LEIJiCNaKbLUDBHA/4c2e9a092988563fe04cf0319ea3a32d/Group_140.svg'
+              src: 'https://images.ctfassets.net/pinw8ucllktt/6ryffD1y7TjiBgDoOyFWOZ/9ec3f7f9ed5634c5a3ac4e5d9396b465/two.png'
           }
         ]
       }
 
       let to = '/home'    // this is dynamic in my code...
-      if (this.$router.currentRoute.path === to) {
-        this.$refs.page.$forceUpdate()
-      } else {
-    this.$router.push(to)
+        if (this.$router.currentRoute.path === to) {
+          this.$refs.page.$forceUpdate()
+        } else {
+       this.$router.push(to)
     }
   }
 

@@ -315,7 +315,7 @@ import axios from 'axios';
     },
 
  cvFile () {
-      this.$refs.application.click ()
+      this.$refs.cv.click ()
     },
      onFileChange (e) {
 			const files = e.target.files

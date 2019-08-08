@@ -59,6 +59,20 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
     '@nuxtjs/dotenv',
+    [
+      'nuxt-fontawesome', {
+        component: "fa",
+        imports: [{
+            set: '@fortawesome/free-solid-svg-icons',
+            icons: ['fas']
+          },
+          {
+            set: '@fortawesome/free-brands-svg-icons',
+            icons: ['fab']
+          }
+        ]
+      }
+    ]
   ],
   /*
   ** Axios module configuration
@@ -74,6 +88,8 @@ module.exports = {
   proxy: {
    //
   },
+
+
   /*
   ** Build configuration
   */
@@ -94,6 +110,6 @@ module.exports = {
   env: {
     SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
     MONGODB_PASS: process.env.MONGODB_PASS,
-    
+
   }
 }
