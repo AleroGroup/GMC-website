@@ -65,7 +65,7 @@ export default {
   },
   head() {
     return {
-      title: 'Error • Great Minds Challenge Nairobi'
+      title: 'Talk to us • Great Minds Challenge Nairobi'
     }
   },
   data() {
