@@ -41,6 +41,11 @@
 <script>
 export default {
   name: 'SplashScreen',
+  head() {
+    return {
+      title: 'Great Minds Challenge'
+          }
+  },
   data() {
     return {
       interval: {},

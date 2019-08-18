@@ -1,19 +1,81 @@
-const pkg = require('./package')
+//const pkg = require('./package')
+const siteConfig = require('./config/site')
+const analyticsID = 'UA-145893871-1'
+const siteUrl = 'https://www.greatmindsnairobi.co.ke'
+
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 require('dotenv').config()
+
+
 
 module.exports = {
   mode: 'universal',
 
+  watch: ['~/config/*'],
+
+  env: {
+    baseUrl: process.env.NODE_ENV === 'production' ?
+      `${siteConfig.url}/` :
+      'http://localhost:3000/'
+  },
   /*
   ** Headers of the page
   */
   head: {
-    title: pkg.name,
+    title: 'Great Minds Nairobi',
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description }
+      {
+        charset: 'utf-8'
+      },
+      {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1, shrink-to-fit=no'
+      },
+      {
+        'http-equiv': 'x-ua-compatible',
+        content: 'ie=edge'
+      },
+      {
+        hid: 'description',
+        name: 'description',
+        content: siteConfig.description
+      },
+      {
+        hid: 'robots',
+        name: 'robots',
+        content: siteConfig.index === false ? 'noindex,nofollow' : 'index,follow'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      },
+      {
+        property: 'og:site_name',
+        content: siteConfig.title
+      },
+      {
+        hid: 'og:title',
+        property: 'og:title',
+        content: siteConfig.title
+      },
+      {
+        hid: 'og:image',
+        property: 'og:image',
+        content: process.env.NODE_ENV === 'production' ?
+          `${siteConfig.url}/${siteConfig.ogImage}` :
+          `http://localhost:3000/${siteConfig.ogImage}`
+      },
+
+      {
+        hid: 'og:description',
+        property: 'og:description',
+        content: siteConfig.description
+      },
+      {
+        hid: 'google-site-verification',
+        name: 'google-site-verification',
+        content: 'rD0ww0onzejSz3QS0Jrl-als30HUz9pYDcuVi2dXzNo'
+      }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -48,7 +110,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/vuetify'
+    '@/plugins/vuetify',
   ],
 
   /*
@@ -59,6 +121,8 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
     '@nuxtjs/dotenv',
+    '@nuxtjs/sitemap',
+    '@nuxtjs/google-analytics',
     [
       'nuxt-fontawesome', {
         component: "fa",
@@ -89,6 +153,13 @@ module.exports = {
    //
   },
 
+googleAnalytics: {
+    id: analyticsID
+  },
+
+  sitemap: {
+    hostname: siteUrl
+  },
 
   /*
   ** Build configuration
@@ -106,10 +177,5 @@ module.exports = {
     */
     extend(config, ctx) {
     }
-  },
-  env: {
-    SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
-    MONGODB_PASS: process.env.MONGODB_PASS,
-
   }
 }

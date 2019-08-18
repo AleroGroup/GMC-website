@@ -31,11 +31,11 @@
             >Coaches & Experts</v-btn
           ></nuxt-link
         >
-        <nuxt-link to="/error" style="text-decoration:none;">
+        <!-- <nuxt-link to="/error" style="text-decoration:none;">
           <v-btn flat color="#0074C1" style="font-size:16px;margin-top:30%;"
             >Services</v-btn
           ></nuxt-link
-        >
+        > -->
       </v-toolbar-items>
       <nuxt-link to="/error" style="text-decoration:none;">
         <v-btn
