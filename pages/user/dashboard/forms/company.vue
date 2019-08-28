@@ -1,24 +1,41 @@
 <template>
   <v-content>
     <v-responsive  style="height:100px;">
-      <v-layout align-center color="" >
+      <v-layout row align-start >
         <v-flex text-xs-left>
           <h3 class="headline font-weight-medium" style="color:#5C5C5C;">Company Participants</h3>
         </v-flex>
       </v-layout>
+      
+      <v-btn small flat color="blue darken-3">
+          Back
+          </v-btn>
     </v-responsive>
     <v-divider></v-divider>
-    <v-layout row wrap>
-        <v-card v-for="company of companies" v-bind:item ="companies"  v-bind:index="index" v-bind:key="company._id">
-           <v-img
-              src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
-          aspect-ratio="2.75" />
-          <!--Card title-->
-          <v-card-title primary-title>
-            <div class="headline">{{ company.surname }}, {{ company.names }}</div>
-          </v-card-title>
 
-        </v-card>
+    <v-layout row wrap>
+       <v-hover v-slot:default="{ hover }" v-for="(company,index) in companies" :key="index">
+             <v-card
+               width="300px"
+               :elevation="hover ? 12 : 2"
+               style="margin-top:2%; margin-right:2%;"
+               @click="toMember(item.itemId)"
+             >
+               <v-img :src="company.url" height="200px">
+               </v-img>
+               <v-card-title primary-title>
+                  <div class="headline mb-3 green--text text--darken-4">
+                    {{ company.title }}
+                  </div>
+                </v-card-title>
+                <v-card-text>
+                  <div class="subtitle text-uppercase">
+                    {{ company.type }}
+                  </div>
+                  <div style="margin-top:5%">{{ company.description }}</div>
+                </v-card-text>
+              </v-card>
+           </v-hover>
     </v-layout>
     <v-layout row wrap>
     </v-layout>
@@ -36,7 +53,7 @@ export default {
    }
    },
    created() {
-     axios.get('http://localhost:3000/company/')
+     axios.get('http://localhost:3000/company/getall')
      .then(res => {
        this.companies = res.data
      })

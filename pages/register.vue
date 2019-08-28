@@ -3,12 +3,14 @@
     <v-flex xs12 fluid>
       <v-toolbar height="95">
         <v-toolbar-title>
+          <nuxt-link to="/home">
           <img
             src="../assets/imgs/logo.png"
             alt="GMClogo"
             height="95"
             style="margin-left:8%;"
           />
+          </nuxt-link>
         </v-toolbar-title>
         <v-spacer />
 
@@ -31,9 +33,7 @@
             </v-card-title>
             <v-card-text class="layout justify-center">
               <div class="title card-main font-weight-medium text-md-center">
-                Are you a go-getter? <br />
-                a dreamer? <br />
-                or a believer?
+                Are you a go-getter? a dreamer? or a believer?
               </div>
             </v-card-text>
             <v-card-title

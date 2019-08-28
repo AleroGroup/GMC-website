@@ -16,6 +16,7 @@
 
       <v-layout row>
         <v-hover v-slot:default="{ hover }">
+         <nuxt-link to="/user/dashboard/forms/company" style="text-decoration:none">
           <v-card
             :elevation="hover ? 9 : 0"
             style="margin:20px"
@@ -30,6 +31,7 @@
                     </v-card-text>
                 </v-card-actions>
             </v-card>
+            </nuxt-link>
         </v-hover>
 
         <v-hover v-slot:default="{ hover }">

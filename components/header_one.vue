@@ -2,12 +2,14 @@
   <v-flex xs12 fluid>
     <v-toolbar height="95">
       <v-toolbar-title>
+        <nuxt-link to="/home">
         <img
           src="../assets/imgs/logo.png"
           alt="GMClogo"
           height="95"
           style="margin-left:8%;"
         />
+        </nuxt-link>
       </v-toolbar-title>
       <v-spacer />
       <v-toolbar-items class="hidden-sm-and-down">

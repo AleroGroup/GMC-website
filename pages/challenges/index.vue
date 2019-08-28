@@ -77,10 +77,12 @@
        <v-layout row justify-center >
           <v-hover v-slot:default="{ hover }" v-for="(list,index) in lists" :key="index">
             <nuxt-link :to="list.to" class="link ma-4" >
-                <v-card
+            <v-card
+                flat
+                color="transparent"
                width="300px"
-               :elevation="hover ? 12 : 2"
-               style="margin-top:2%; margin-right:2%;"
+               :elevation="hover ? 5 : 0"
+               style="margin-top:2%; margin-right:2%;border-radius:20px;"
              >
              <v-layout column justify-center align-center>
                <img :src="list.url" height="300px"/>
