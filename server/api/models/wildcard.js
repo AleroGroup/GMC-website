@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 
 const wildcardSchema = mongoose.Schema({
-_id: mongoose.Schema.Types.ObjectId,
 surname: {
   type: String,
 },
@@ -20,11 +19,12 @@ jobPosition: {
 email: {
   type: String,
 },
-ppic: {
-  type: String
-},
-cv: {
-  type: String
+cloudImage: {
+    type: String
+  },
+cloudFile: {
+  type: String,
+  required: true
 },
 phone: {
   type: String,
@@ -34,10 +34,12 @@ listAc: {
 },
 desc: {
   type: String,
-
 },
-timeStamp: {
-  type : Date,
+personId: {
+  type: String
+},
+post_date: {
+  type: Date,
   default: Date.now
 }
 })

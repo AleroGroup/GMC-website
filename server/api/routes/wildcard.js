@@ -1,4 +1,17 @@
-//this is the form for the company
+const express = require('express');
+const wildcardController = require('../../controllers/wildcardController');
+const upload = require('../../middleware/multer')
+const router = express.Router()
+
+router.post('/postwildcard', upload.any(), wildcardController.createApp)
+
+module.exports = router
+
+
+
+
+
+/* //this is the form for the company
 const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
@@ -136,3 +149,4 @@ router.delete('/:wildcardId', (req, res, next) => {
 });
 
 module.exports = router;
+ */

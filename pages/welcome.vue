@@ -15,7 +15,7 @@
       </v-toolbar>
     </v-flex>
     <v-img
-      src="https://images.ctfassets.net/pinw8ucllktt/EQEmC6FZHKLwLg7Ga7gGT/451c6daf10b04c0c36a8e0fb6882908a/Welcome.png"
+      :src="imgUrl"
       style="height:300px;"
     >
       <v-container fill-height>
@@ -66,6 +66,9 @@ export default {
     return {
       title: 'Welcome • Great Minds Challenge Nairobi'
     }
+  },
+  data () {
+    imgUrl: 'https://ik.imagekit.io/qpt2onjfe/gmc/gmc_site/main/images/Welcome_en3n1_olf.png'
   }
 }
 </script>

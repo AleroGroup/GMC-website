@@ -1,7 +1,7 @@
 <template>
 <v-content>
   <Header />
-   <v-img
+  <v-img
       :src="url"
       style="height:300px;"
     >
@@ -12,12 +12,14 @@
         <v-layout align-center>
           <v-flex text-xs-left>
             <img />
-            <div class="display-2 font-weight-bold text-uppercase" color="primary">Induction</div>
+            <div class="display-2 font-weight-bold text-uppercase" color="primary">end</div>
           </v-flex>
         </v-layout>
       </v-container>
     </v-img>
-
+    <v-content>
+     <!--  images go here -->
+    </v-content>
   <Footer />
 </v-content>
 </template>
@@ -27,7 +29,7 @@ import Header from '@/components/header_one'
 import Footer from '@/components/Footer'
 
 export default {
-  name:'induction',
+  name: 'end',
   components: {
     Header,
     Footer

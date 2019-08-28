@@ -1,36 +1,31 @@
-//this is the form for the company
+const express = require('express');
+const companyController = require('../../controllers/companyController');
+const upload = require('../../middleware/multer')
+const router = express.Router()
+
+router.post('/postcompany', upload.any(), companyController.createApp)
+
+module.exports = router
+
+
+
+
+
+
+
+
+
+
+/* //this is the form for the company
 const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
-const multer = require('multer')
 const Company = require('../models/company')
+const upload = require('../../middleware/multer')
+const companyController = require('../../controllers/companyController')
 
 
 //GET the form by id
- const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    cb(null, './uploads/');
-  },
-  filename: function(req, file, cb) {
-    cb(null, new Date().toISOString() + file.originalname);
-  }
-});
-
-const fileFilter = (req, file, cb) => {
-  // reject a file
-  if (file.mimetype === 'video/mp4') {
-    cb(null, true);
-  } else {
-    cb(null, false);
-  }
-};
-
-const upload = multer({
-  storage: storage,
-  fileFilter: fileFilter
-});
-
-
 router.get('/:comapanyId', (req, res, next) => {
     const id = req.params.comapanyId;
     Company.findById(id)
@@ -60,9 +55,8 @@ router.get('/:comapanyId', (req, res, next) => {
  });
 
 //POST
-router.post('/post',upload.single('ppic'), (req, res, next) => {
+router.post('/post', (req, res, next) => {
     const company = new Company({
-        _id: new mongoose.Types.ObjectId(),
         surname: req.body.surname ,
         names: req.body.names,
         dob: req.body.dob,
@@ -72,14 +66,13 @@ router.post('/post',upload.single('ppic'), (req, res, next) => {
         phone: req.body.phone,
         listAc:req.body.listAc,
         desc: req.body.desc,
-        ppic: req.file.path
     })
     company
     .save()
     .then(result => {
     console.log(result);
     res.status(201).json({
- message: 'wildcard registered successfully'
+ message: 'company registered successfully'
 }).catch(error => {
     console.log(error)
     res.status(500).json({
@@ -92,3 +85,4 @@ router.post('/post',upload.single('ppic'), (req, res, next) => {
 //UPDATE
 
 module.exports = router;
+ */

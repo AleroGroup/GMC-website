@@ -131,7 +131,7 @@
                   label="Select Image"
                   v-model="imgName"
                   prepend-icon='attach_file'
-                  @click='imgFile' >
+                  @click='imgFile'>
                 </v-text-field>
                   <input
 					        	type="file"

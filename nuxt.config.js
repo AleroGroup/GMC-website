@@ -2,7 +2,6 @@
 const siteConfig = require('./config/site')
 const analyticsID = 'UA-145893871-1'
 const siteUrl = 'https://www.greatmindsnairobi.co.ke'
-
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 require('dotenv').config()
 
@@ -122,21 +121,7 @@ module.exports = {
     '@nuxtjs/proxy',
     '@nuxtjs/dotenv',
     '@nuxtjs/sitemap',
-    '@nuxtjs/google-analytics',
-    [
-      'nuxt-fontawesome', {
-        component: "fa",
-        imports: [{
-            set: '@fortawesome/free-solid-svg-icons',
-            icons: ['fas']
-          },
-          {
-            set: '@fortawesome/free-brands-svg-icons',
-            icons: ['fab']
-          }
-        ]
-      }
-    ]
+    '@nuxtjs/google-analytics'
   ],
   /*
   ** Axios module configuration

@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 
 const companySchema = mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
     surname: {
         type: String,
     },
@@ -20,11 +19,12 @@ const companySchema = mongoose.Schema({
     email: {
         type: String,
     },
-    ppic: {
+    cloudImage: {
       type: String
     },
-    cv: {
-      type: String
+    cloudFile: {
+      type: String,
+      required: true
     },
     phone: {
         type: String,
@@ -36,7 +36,10 @@ const companySchema = mongoose.Schema({
         type: String,
 
     },
-    timeStamp: {
+    personId: {
+      type: String
+    },
+    post_date: {
         type : Date,
         default: Date.now
     }

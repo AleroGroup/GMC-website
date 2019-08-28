@@ -12,7 +12,7 @@
         <v-layout align-center>
           <v-flex text-xs-left>
             <img />
-            <div class="display-2 font-weight-bold text-uppercase" color="primary">Induction</div>
+            <div class="display-2 font-weight-bold text-uppercase" color="primary">3 day challenge</div>
           </v-flex>
         </v-layout>
       </v-container>
@@ -27,7 +27,7 @@ import Header from '@/components/header_one'
 import Footer from '@/components/Footer'
 
 export default {
-  name:'induction',
+
   components: {
     Header,
     Footer
@@ -40,7 +40,7 @@ export default {
   data() {
 
     return {
-       url:' https://images.ctfassets.net/pinw8ucllktt/6DYgh9tfinHHrEWDzYcPDj/4749be8f78dbee4d17dd8e0f9d1792d1/GMC-two.png'
+       url:'https://images.ctfassets.net/pinw8ucllktt/6DYgh9tfinHHrEWDzYcPDj/4749be8f78dbee4d17dd8e0f9d1792d1/GMC-two.png'
     }
     let to = '/home' // this is dynamic in my code...
     if (this.$router.currentRoute.path === to) {

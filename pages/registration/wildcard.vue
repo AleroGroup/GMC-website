@@ -9,7 +9,7 @@
           <v-btn to="/register" flat large color="#0074C1">Back</v-btn>
     </v-toolbar>
   </v-flex>
-      <v-jumbotron color="#C1ECF9" style="height:300px;">
+    <v-jumbotron color="#C1ECF9" style="height:300px;">
        <v-container fill-height>
           <v-layout align-center>
            <v-flex text-xs-left>
@@ -17,7 +17,7 @@
            </v-flex>
           </v-layout>
       </v-container>
-      </v-jumbotron>
+    </v-jumbotron>
 
     <v-content style="margin-bottom:3%;">
       <v-snackbar
@@ -27,13 +27,13 @@
       right
       color="success"
     >
-      <span>success</span>
-      <v-icon dark>check_circle</v-icon>
+        <span>success</span>
+        <v-icon dark>check_circle</v-icon>
     </v-snackbar>
 
     <v-flex  xs12 sm12 md12 class="justify-center" style="margin-top:5%;">
       <!-- This is the company form -->
-      <form enctype="multipart/form-data" ref="form" >
+      <form ref="form" enctype="multipart/form-data">
         <v-layout row wrap justify-center>
           <v-flex xs12 sm4 md3 style="margin-left: 0.8%;">
               <v-text-field
@@ -132,7 +132,7 @@
                   label="Select Image"
                   v-model="imgName"
                   prepend-icon='attach_file'
-                  @click='imgFile' >
+                  @click='imgFile'>
                 </v-text-field>
                   <input
 					        	type="file"

@@ -1,24 +1,20 @@
 const express = require('express')
+const app = express()
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
+require('dotenv').config()
 
+// IMOPRTING ESSENTIAL LIBRARIES
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const path = require('path')
+const nodemailer = require('nodemailer')
+const multipart = require('connect-multiparty')
+
+// import database configuration
 const mongoose = require('mongoose')
 mongoose.Promise = require('bluebird')
-
-const app = express()
-// import database configuration
-
-// Import and Set Nuxt.js options
-let config = require('../nuxt.config.js')
-config.dev = !(process.env.NODE_ENV === 'production')
-require('dotenv').config()
-
-//Importing routes
-const companyRouter = require('./api/routes/company')
-const wildcardRouter = require('./api/routes/wildcard')
 
 let mongo = process.env.MONGODB_PASS
 
@@ -29,17 +25,39 @@ const url =
 mongoose.connect(url, {
   useNewUrlParser: true
 })
+mongoose.connection
 
-/* const sendgridmail = require('@sendgrid/mail');
-sendgridmail.setApiKey(process.env.SENDGRID_API_KEY)
- //Mailing
-    app.get('/send-email', (req, res) => {
+// Import and Set Nuxt.js options
+let config = require('../nuxt.config.js')
+config.dev = !(process.env.NODE_ENV === 'production')
 
-    //Get Variables from query string in the search bar
-    const { email, name } = req.query;
-    console.log('req ${req}')
 
-       const msg = {
+//IMPORTING ROUTES
+const companyRouter = require('./api/routes/company')
+const wildcardRouter = require('./api/routes/wildcard')
+
+/************************************************/
+
+// SENDING EMAIL OF A USER THAT IS REGISTERED
+// Multiparty Middleware
+const multipartMiddleware = multipart()
+
+// Creating the nodemailer
+const transporter = nodemailer.createTransport({
+  //service: 'SendGrid',
+  host: "smtp.mailtrap.io",
+  port: 2525,
+  // host: "smtp.sendgrid.net",
+  // port: 587,
+  auth: {
+    user: "f731df9789ba39",
+    pass: "e770d763bf4ad5"
+    /*user: process.env.SENDGRID_USERNAME,
+    pass: process.env.SENDGRID_PASSWORD */
+  }
+});
+    app.post("/sendmail", multipartMiddleware, function (req, res) {
+       let mailOptions = {
        to: email,
        from: 'Great Minds Challenge <info@greatmindschallenge.co.ke>',
        subject: 'Company Participant '+ name,
@@ -82,31 +100,46 @@ sendgridmail.setApiKey(process.env.SENDGRID_API_KEY)
            <p style="margin:0;margin-bottom:10px;color:#3c4043;font-family:Roboto,Helvetica,Arial,sans-serif;font-size:14px;font-weight:400;line-height:24px;padding:0">We will send you the APPI CREPESTM Analysis brief that will facilitate you to identify and prioritize on which challenge you will work on and BMC (Business Model Canvas) brief that will guide you to come up with execution strategy for your impact plan.<p>
 
            ...read more <a  style="text-decoration:none;"href="https://assets.ctfassets.net/pinw8ucllktt/2fb8LVrohmdNH5oBmxeXGs/393fb75b1e14d83b472f40f354b5d45f/Action_Steps_GMC_2019_2nd_Edition_.pdf">here </a>
-     </div>
-  </div>
-</div>
-       `
-}
- sendgridmail.send(msg)
- .then((msg) => console.log(text));
+        </div>
+      </div>
+    </div> `
+  }
+   transporter.sendMail(mailOptions, function (error, info) {
+     if (error) {
+       return res.json({
+         status: 500,
+         message: `Error sending mail`
+       });
+     } else {
+       return res.json({
+         status: 200,
+         message: `Email sent`
+       })
+     }
+   })
+})
 
-}) */
+
 
 async function start() {
   //Middlewares
   app.use(cors())
   app.use(morgan('dev'))
   app.use(bodyParser.json())
+  app.use(bodyParser.urlencoded({
+    extended: false
+  }));
+  app.use(express.static(path.join(__dirname, 'public')))
+  app.use('/uploads', express.static('uploads'));
+
   //app.use('/uploads', express.static('uploads'));
   app.use('/company', companyRouter)
   app.use('/wildcard', wildcardRouter)
 
+
   app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
-    res.header(
-      'Access-Control-Allow-Headers',
-      'Origin, X-Requested-With, Content-Type, Accept'
-    )
+    res.header('Access-Control-Allow-Headers','*')
     if (req.method === 'OPTIONS') {
       res.header(
         'Access-Control-Allow-Methods',
@@ -119,6 +152,16 @@ async function start() {
       return res.status(200).json({})
     }
     next()
+  })
+
+
+  app.use((error, req, res, next) => {
+    res.status(error.status || 500)
+    res.json({
+      error: {
+        message: error.message
+      }
+    })
   })
 
   // Init Nuxt.js
@@ -144,4 +187,5 @@ async function start() {
     badge: true
   })
 }
+
 start()
