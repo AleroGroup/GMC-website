@@ -68,7 +68,9 @@ export default {
     }
   },
   data () {
-    imgUrl: 'https://ik.imagekit.io/qpt2onjfe/gmc/gmc_site/main/images/Welcome_en3n1_olf.png'
+    return {
+       imgUrl: 'https://ik.imagekit.io/qpt2onjfe/gmc/gmc_site/main/images/Welcome_en3n1_olf.png'
+    }
   }
 }
 </script>

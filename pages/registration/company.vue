@@ -126,7 +126,7 @@
                </v-card-title>
                <img
                  contain
-                :src="imageUrl" height="150" v-if="imgUrl" />
+                :src="imgUrl" height="150" v-if="imgUrl" />
                <v-text-field
                   label="Select Image"
                   v-model="imgName"
@@ -249,7 +249,7 @@ import axios from 'axios';
   },
   data () {
   return {
-
+    image:'',
     form: {
       surname: '',
       names: '',
@@ -261,12 +261,11 @@ import axios from 'axios';
       phone: '',
       list: '',
       description:'',
-      ppic:'',
-      cv: '',
+      cloudImage: '',
+      cloudFile: '',
       terms: false,
     },
         rules: {
-
           surname: [val => (val || '').length > 0 || 'This field is required'],
           names: [val => (val || '').length > 0 || 'This field is required'],
           dob: [val => (val || '').length > 0 || 'This field is required'],
@@ -288,80 +287,66 @@ import axios from 'axios';
      }
   },
 
-  methods: {
-   /*  sendEmail() {
-    return axios.get(`http://localhost:3000/send-email?email=${form.email}&name=${form.names}`)
-    }, */
- imgFile () {
-      this.$refs.image.click ()
+methods: {
+ imgFile() {
+      this.$refs.image.click();
     },
-    onFilePicked (e) {
-			const files = e.target.files
-			if(files[0] !== undefined) {
-				this.imgName = files[0].name
-				if(this.imgName.lastIndexOf('.') <= 0) {
-					return
-				}
-				const fr = new FileReader ()
-				fr.readAsDataURL(files[0])
-				fr.addEventListener('load', () => {
-					this.imgUrl = fr.result
-					this.form.ppic = files[0] // this is an image file that can be sent to server...
-        })
-        } else {
-				//this.imageName = ''
-        //this.imageUrl = ''
-        console.log('not posted')
-			}
-    },
-
- cvFile () {
-      this.$refs.cv.click ()
-    },
-     onFileChange (e) {
-			const files = e.target.files
-			if(files[0] !== undefined) {
-				this.cvName= files[0].name
-				if(this.cvName.lastIndexOf('.') <= 0) {
-					return
-				}
-				const fr = new FileReader ()
-				fr.readAsDataURL(files[0])
-				fr.addEventListener('load', () => {
-          this.cvUrl = fr.result
-          this.form.cv = files[0]
-            // this is an image file that can be sent to server...
-        })
-      }  else {
-				//this.cvFileName = ''
-        //this.cvFile = ''
-        console.log('not posted')
+    onFilePicked(e) {
+      const files = e.target.files;
+      if (files[0] !== undefined) {
+        this.imgName = files[0].name;
+        if (this.imgName.lastIndexOf(".") <= 0) {
+          return;
         }
+        const fr = new FileReader();
+        fr.readAsDataURL(files[0]);
+        fr.addEventListener("load", () => {
+          this.imgUrl = fr.result;
+          this.cloudImage = files[0];
+        });
+      } else {
+        console.log("not posted");
+      }
     },
 
-    submitForm() {
-
-      //const formData = new FormData()
-     //formData.append('ppic', this.form.ppic)
-
-      //const formDataii = new FormData()
-      //formDataii.append('cv', this.form.cv, this.form.cv.name)
-
-      if (this.$refs.form.submitForm()) {
-          this.snackbar = true
+    cvFile() {
+      this.$refs.cv.click();
+    },
+    onFileChange(e) {
+      const files = e.target.files;
+      if (files[0] !== undefined) {
+        this.cvName = files[0].name;
+        if (this.cvName.lastIndexOf(".") <= 0) {
+          return;
         }
-      axios.post('http://localhost:3000/company/post',formData, {
-        surname: this.form.surname,
-        names: this.form.names,
-        dob: this.form.dob,
-        noc: this.form.noc,
-        jobPosition: this.form.jobPosition,
-        email: this.form.email,
-        phone: this.form.phone,
-        listAc: this.form.list,
-        desc: this.form.desc,
-        //ppic: this.form.ppic
-      }).then(res =>{
+        const fr = new FileReader();
+        fr.readAsDataURL(files[0]);
+        fr.addEventListener("load", () => {
+          this.cvUrl = fr.result;
+          this.cloudFile = files[0];
+        });
+      } else {
+        console.log("not posted");
+      }
+    },
+  submitForm() {
+      let formData = new FormData();
+      formData.append("image", this.cloudImage);
+      formData.append("doc", this.cloudFile);
+
+      formData.append("surename", this.form.surname);
+      formData.append("givennames", this.form.names);
+      formData.append("email", this.email);
+
+      formData.append("dob", this.form.dob);
+      formData.append("noc", this.form.noc);
+      formData.append("job position", this.form.jobPosition);
+
+      formData.append("phone", this.form.phone);
+      formData.append("list", this.form.list);
+      formData.append("desc", this.form.desc);
+
+      axios.post('http://localhost:3000/company/postcompany',formData).then(res =>{
         this.$router.push('/welcome')
       }).catch(err => {
             this.errors.push(error);

@@ -17,7 +17,7 @@
           <v-card-title primary-title>
             <div class="headline">{{ company.surname }}, {{ company.names }}</div>
           </v-card-title>
-         
+
         </v-card>
     </v-layout>
     <v-layout row wrap>
@@ -36,7 +36,7 @@ export default {
    }
    },
    created() {
-     axios.get('http://localhost:3000/company')
+     axios.get('http://localhost:3000/company/')
      .then(res => {
        this.companies = res.data
      })

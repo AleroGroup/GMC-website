@@ -1,9 +1,43 @@
-const express = require('express');
-const companyController = require('../../controllers/companyController');
+const express = require('express')
+const mongoose = require('mongoose')
+const companyController = require('../../controllers/companyController')
 const upload = require('../../middleware/multer')
 const router = express.Router()
 
 router.post('/postcompany', upload.any(), companyController.createApp)
+
+
+//GET the form by id
+router.get('/:comapanyId', (req, res, next) => {
+  const id = req.params.comapanyId;
+  companyController.findById(id)
+    .exec()
+    .then(doc => {
+      console.log(doc);
+      res.status(200).json(doc);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+});
+
+
+//GET all forms
+router.get('/getall', (req, res, next) => {
+  companyController.find().exec().then(docs => {
+    console.log(docs);
+    res.status(200).json(docs);
+  }).catch(error => {
+    console.log(error);
+    res.status(500).json({
+      error: err
+    });
+  });
+});
+
 
 module.exports = router
 

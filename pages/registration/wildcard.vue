@@ -9,7 +9,7 @@
           <v-btn to="/register" flat large color="#0074C1">Back</v-btn>
     </v-toolbar>
   </v-flex>
-    <v-jumbotron color="#C1ECF9" style="height:300px;">
+      <v-jumbotron color="#DBEACE" style="height:300px;">
        <v-container fill-height>
           <v-layout align-center>
            <v-flex text-xs-left>
@@ -17,7 +17,7 @@
            </v-flex>
           </v-layout>
       </v-container>
-    </v-jumbotron>
+      </v-jumbotron>
 
     <v-content style="margin-bottom:3%;">
       <v-snackbar
@@ -27,12 +27,12 @@
       right
       color="success"
     >
-        <span>success</span>
-        <v-icon dark>check_circle</v-icon>
+      <span>success</span>
+      <v-icon dark>check_circle</v-icon>
     </v-snackbar>
 
     <v-flex  xs12 sm12 md12 class="justify-center" style="margin-top:5%;">
-      <!-- This is the company form -->
+      <!-- This is the Wildcard form -->
       <form ref="form" enctype="multipart/form-data">
         <v-layout row wrap justify-center>
           <v-flex xs12 sm4 md3 style="margin-left: 0.8%;">
@@ -60,7 +60,6 @@
             <v-text-field
               v-model="form.dob"
               :rules="rules.dob"
-              name="dob"
               color="primary"
               hint="dd/mm/yyyy"
               required
@@ -119,15 +118,15 @@
           </v-flex>
         </v-layout>
 
-        <v-layout justify-center >
-          <v-flex xs12 sm8 md6 class="justify-center">
-          <v-card class="elevation-0 transparent" v-if="!image">
+         <v-layout justify-center >
+           <v-flex xs12 sm8 md6 class="justify-center">
+           <v-card class="elevation-0 transparent" v-if="!image">
                <v-card-title class="subheading card-main">
                   Upload your photo
                </v-card-title>
                <img
                  contain
-                :src="imageUrl" height="150" v-if="imgUrl" />
+                :src="imgUrl" height="150" v-if="imgUrl" />
                <v-text-field
                   label="Select Image"
                   v-model="imgName"
@@ -155,7 +154,7 @@
                   <input
 					        	type="file"
 						        style="display: none"
-						        ref="application"
+						        ref="cv"
 						        accept="application/*"
 						        @change="onFileChange">
              </v-card>
@@ -250,6 +249,7 @@ import axios from 'axios';
   },
   data () {
   return {
+    image:'',
     form: {
       surname: '',
       names: '',
@@ -261,12 +261,11 @@ import axios from 'axios';
       phone: '',
       list: '',
       description:'',
-      ppic: '',
-      cv:'',
+      cloudImage: '',
+      cloudFile: '',
       terms: false,
     },
         rules: {
-
           surname: [val => (val || '').length > 0 || 'This field is required'],
           names: [val => (val || '').length > 0 || 'This field is required'],
           dob: [val => (val || '').length > 0 || 'This field is required'],
@@ -274,92 +273,80 @@ import axios from 'axios';
           jobPosition: [val => (val || '').length > 0 || 'This field is required'],
         },
 
-        termsContent: `Esteemed Great Mind, by submitting this application form, you unconditionally and without any reservation agree to abide by all Great Minds Challenge TCs. You faithfully declare that all the information provided above is true to the best of your knowledge. You agree not to hold us liable for any accidents or incidents when travelling to and from Naivasha, during meet and greet and during your stay on the 3 exclusive days. You agree to fully take responsibility of your actions and indemnify Great Minds Challenge from any accidents or incidents. You declare to freely attend in good faith and be committed during the 2 months engagement with GMC. We commit to endeavour to offer you a world class experience observing international best practice standards.
+        termsContent: `Esteemed Great Mind, by submitting this application form, you unconditionally and without any reservation agree to abide by all Great Minds Challenge TCs. You faithfully declare that all the information provided above is true to the best of your knowledge. You agree not to hold us liable for any accidents or incidents when travelling to and from Diani, during meet and greet and during your stay on the 3 exclusive days. You agree to fully take responsibility of your actions and indemnify Great Minds Challenge from any accidents or incidents. You declare to freely attend in good faith and be committed during the 2 months engagement with GMC. We commit to endeavour to offer you a world class experience observing international best practice standards.
         `,
         terms:false,
         snackbar: false,
         error:'',
         valid: true,
         imgUrl: '',
-        imgName: '',
+        imgName:'',
         cvUrl: '',
-        cvName:''
+        cvName:'',
+
      }
   },
 
-  methods: {
-   /*  sendEmail() {
-    return axios.get(`http://localhost:3000/send-email?email=${form.email}&name=${form.names}`)
-    }, */
-    imgFile () {
-      this.$refs.image.click ()
+methods: {
+ imgFile() {
+      this.$refs.image.click();
     },
-    onFilePicked (e) {
-			const files = e.target.files
-			if(files[0] !== undefined) {
-				this.imgName = files[0].name
-				if(this.imgName.lastIndexOf('.') <= 0) {
-					return
-				}
-				const fr = new FileReader ()
-				fr.readAsDataURL(files[0])
-				fr.addEventListener('load', () => {
-					this.imgUrl = fr.result
-					this.form.ppic = files[0] // this is an image file that can be sent to server...
-        })
-        } else {
-				//this.imageName = ''
-        //this.imageUrl = ''
-        console.log('not posted')
-			}
-    },
-
- cvFile () {
-      this.$refs.cv.click ()
-    },
-     onFileChange (e) {
-			const files = e.target.files
-			if(files[0] !== undefined) {
-				this.cvName= files[0].name
-				if(this.cvName.lastIndexOf('.') <= 0) {
-					return
-				}
-				const fr = new FileReader ()
-				fr.readAsDataURL(files[0])
-				fr.addEventListener('load', () => {
-          this.cvUrl = fr.result
-					this.form.cv = files[0] // this is an image file that can be sent to server...
-        })
-      }  else {
-				//this.cvFileName = ''
-        //this.cvFile = ''
-        console.log('not posted')
+    onFilePicked(e) {
+      const files = e.target.files;
+      if (files[0] !== undefined) {
+        this.imgName = files[0].name;
+        if (this.imgName.lastIndexOf(".") <= 0) {
+          return;
         }
+        const fr = new FileReader();
+        fr.readAsDataURL(files[0]);
+        fr.addEventListener("load", () => {
+          this.imgUrl = fr.result;
+          this.cloudImage = files[0];
+        });
+      } else {
+        console.log("not posted");
+      }
     },
 
-    submitForm() {
-      const formData = new FormData()
-      formData.append('ppic', this.form.ppic)
-
-      const formDataii = new FormData()
-      formDataii.append('cv', this.form.cv, this.form.cv.name)
-
-      if (this.$refs.form.submitForm()) {
-          this.snackbar = true
+    cvFile() {
+      this.$refs.cv.click();
+    },
+    onFileChange(e) {
+      const files = e.target.files;
+      if (files[0] !== undefined) {
+        this.cvName = files[0].name;
+        if (this.cvName.lastIndexOf(".") <= 0) {
+          return;
         }
-      axios.post('http://localhost:3000/wildcard/post',formData, formDataii, {
-        surname: this.form.surname,
-        names: this.form.names,
-        dob: this.form.dob,
-        noc: this.form.noc,
-        jobPosition: this.form.jobPosition,
-        email: this.form.email,
-        phone: this.form.phone,
-        listAc: this.form.list,
-        desc: this.form.desc,
-        ppic: this.form.ppic,
-        cv: this.form.cv
-      }).then(res =>{
+        const fr = new FileReader();
+        fr.readAsDataURL(files[0]);
+        fr.addEventListener("load", () => {
+          this.cvUrl = fr.result;
+          this.cloudFile = files[0];
+        });
+      } else {
+        console.log("not posted");
+      }
+    },
+  submitForm() {
+      let formData = new FormData();
+      formData.append("image", this.cloudImage);
+      formData.append("doc", this.cloudFile);
+
+      formData.append("surename", this.form.surname);
+      formData.append("givennames", this.form.names);
+      formData.append("email", this.email);
+
+      formData.append("dob", this.form.dob);
+      formData.append("noc", this.form.noc);
+      formData.append("job position", this.form.jobPosition);
+
+      formData.append("phone", this.form.phone);
+      formData.append("list", this.form.list);
+      formData.append("desc", this.form.desc);
+
+      axios.post('http://localhost:3000/wildcard/postwildcard',formData).then(res =>{
         this.$router.push('/welcome')
       }).catch(err => {
             this.errors.push(error);
