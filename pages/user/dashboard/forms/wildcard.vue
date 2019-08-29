@@ -1,9 +1,6 @@
 <template>
   <v-content>
     <v-responsive  style="height:100px;">
-      <v-btn small flat color="blue darken-3">
-        Back
-      </v-btn>
       <v-layout row align-start >
         <v-flex text-xs-left>
           <h3 class="headline font-weight-medium" style="color:#5C5C5C;">Wildcard Participants</h3>
