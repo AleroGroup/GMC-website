@@ -29,7 +29,7 @@ const companySchema = mongoose.Schema({
     phone: {
         type: String,
     },
-    listAc: {
+    list: {
         type: String,
     },
     desc: {

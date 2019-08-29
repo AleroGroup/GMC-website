@@ -1,6 +1,8 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const companyController = require('../../controllers/companyController')
+const companyModel = require('../models/company')
+
 const upload = require('../../middleware/multer')
 const router = express.Router()
 
@@ -8,9 +10,9 @@ router.post('/postcompany', upload.any(), companyController.createApp)
 
 
 //GET the form by id
-router.get('/:comapanyId', (req, res, next) => {
-  const id = req.params.comapanyId;
-  companyController.findById(id)
+router.get('/:companyId', (req, res, next) => {
+  const id = req.params.companyId;
+  companyModel.findById(id)
     .exec()
     .then(doc => {
       console.log(doc);
@@ -26,8 +28,8 @@ router.get('/:comapanyId', (req, res, next) => {
 
 
 //GET all forms
-router.get('/getall', (req, res, next) => {
-  companyController.find().exec().then(docs => {
+router.get('/', (req, res, next) => {
+  companyModel.find().exec().then(docs => {
     console.log(docs);
     res.status(200).json(docs);
   }).catch(error => {

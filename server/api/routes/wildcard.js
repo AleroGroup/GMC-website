@@ -1,10 +1,42 @@
 const express = require('express');
-const wildcardController = require('../../controllers/wildcardController');
+const wildcardController = require('../../controllers/wildcardController')
+const wildcardModel = require('../models/wildcard')
 const upload = require('../../middleware/multer')
 const router = express.Router()
 
 router.post('/postwildcard', upload.any(), wildcardController.createApp)
 
+
+//GET the form by id
+router.get('/:wildcardId', (req, res, next) => {
+  const id = req.params.wildcardId;
+  wildcardModel.findById(id)
+    .exec()
+    .then(doc => {
+      console.log(doc);
+      res.status(200).json(doc);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+});
+
+
+//GET all forms
+router.get('/', (req, res, next) => {
+  wildcardModel.find().exec().then(docs => {
+    console.log(docs);
+    res.status(200).json(docs);
+  }).catch(error => {
+    console.log(error);
+    res.status(500).json({
+      error: err
+    });
+  });
+});
 module.exports = router
 
 

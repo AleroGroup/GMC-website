@@ -1,36 +1,43 @@
 <template>
   <v-content>
     <v-responsive  style="height:100px;">
-      <v-layout align-center color="" >
+      <v-btn small flat color="blue darken-3">
+        Back
+      </v-btn>
+      <v-layout row align-start >
         <v-flex text-xs-left>
           <h3 class="headline font-weight-medium" style="color:#5C5C5C;">Wildcard Participants</h3>
         </v-flex>
       </v-layout>
     </v-responsive>
     <v-divider></v-divider>
+    <v-layout row justify-end>
+    <v-btn color="green" @click="csvExport(csvData)"> Export all to CSV </v-btn>
+   </v-layout>
+
     <v-layout row wrap>
-       <v-flex xs12 md6 >
-         <v-layout column>
-            <v-card v-for="wildcard of wildcards" v-bind:item ="wildcards"  v-bind:index="index" v-bind:key="wildcard._id" width="400"
-        style="margin:20px">
-
-          <!--Card title-->
-          <v-card-title primary-title>
-            <div class="title"><p>{{ wildcard.surname }},</p> {{ wildcard.names }}</div>
-
-          </v-card-title>
-           <v-card-text>
-             <div class="subtitle grey--text">{{ wildcard.timeStamp }} </div>
-            <div class="font-weight-medium"> <p>{{ wildcard.email}}</p></div>
-          </v-card-text>
-        <v-card-actions>
-          <v-btn disabled flat color="blue darken-2">View</v-btn>
-         <!--  <v-btn flat color="danger" @click="deleteData(wildcard, wildcard._id)">Delete</v-btn> -->
-        </v-card-actions>
-        </v-card>
-      </v-layout>
-
-    </v-flex>
+       <v-hover v-slot:default="{ hover }" v-for="(wildcard,index) in wildcards" :key="index">
+             <v-card
+               width="300px"
+               :elevation="hover ? 12 : 2"
+               style="margin-top:2%; margin-right:2%;"
+               @click="toMember(item.itemId)"
+             >
+               <v-img :src="wildcard.cloudImage" height="200px">
+               </v-img>
+               <v-card-title primary-title>
+                  <div class="headline mb-3 green--text text--darken-4">
+                    {{ wildcard.surname }} , {{ wildcard.names }}
+                  </div>
+                </v-card-title>
+                <v-card-text>
+                  <div class="subtitle text-uppercase">
+                    {{ wildcard.noc }}
+                  </div>
+                  <div style="margin-top:5%">{{ wildcard.email }}</div>
+                </v-card-text>
+              </v-card>
+           </v-hover>
     </v-layout>
     <v-layout row wrap>
     </v-layout>
@@ -40,34 +47,48 @@
 <script>
 import axios from 'axios'
 export default {
-  name: 'dash_wildcard',
-   data () {
-    return {
+  name: 'dash_company',
+   data() {
+     return {
        wildcards: [],
-       wildcard: {},
-       wildcard_id:'' ,
        errors: ''
-         }
+   }
    },
+    computed: {
+    csvData() {
+      return this.wildcards.map(item => ({
+        ...item,
+        'type of form': 'wildcard'
+      }));
+    }
+  },
+   methods: {
+    csvExport(arrData) {
+      let csvContent = "data:text/csv;charset=utf-8,";
+      csvContent += [
+        Object.keys(arrData[0]).join(";"),
+        ...arrData.map(item => Object.values(item).join(";"))
+      ]
+        .join("\n")
+        .replace(/(^\[)|(\]$)/gm, "");
 
-
+      const data = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", data);
+      link.setAttribute("download", "company.csv");
+      link.click();
+    }
+  },
    created() {
-     axios.get('http://localhost:3000/wildcard')
+     axios.get('http://localhost:3000/wildcard/')
      .then(res => {
        this.wildcards = res.data
      })
      .catch(err => {
        this.errors.push(err);
      })
-   },
-   methods: {
+   }
 
-   deleteData(wildcards, id) {
-      axios.delete('http://localhost:3000/wildcard' + id)
-        .then(res => this.wildcards.splice(index, 1));
-      window.location.reload();
-    },
-}
 }
 </script>
 

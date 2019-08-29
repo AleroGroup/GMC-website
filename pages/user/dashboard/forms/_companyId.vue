@@ -34,66 +34,10 @@
                   </div>
                   <div style="margin-top:5%">{{ company.email }}</div>
                 </v-card-text>
-              </v-card>
-           </v-hover>
+             </v-card>
+       </v-hover>
     </v-layout>
     <v-layout row wrap>
     </v-layout>
   </v-content>
 </template>
-
-<script>
-import axios from 'axios'
-export default {
-  name: 'dash_company',
-   data() {
-     return {
-       companies: [],
-       errors: ''
-   }
-   },
-   computed: {
-    csvData() {
-      return this.companies.map(item => ({
-        ...item,
-        'type of form': 'company'
-      }));
-    }
-  },
-   methods: {
-      toMember(companyId) {
-        this.$router.push({name:'company',params:{Pid:companyId}})
-      },
-
-    csvExport(arrData) {
-      let csvContent = "data:text/csv;charset=utf-8,";
-      csvContent += [
-        Object.keys(arrData[0]).join(";"),
-        ...arrData.map(item => Object.values(item).join(";"))
-      ]
-        .join("\n")
-        .replace(/(^\[)|(\]$)/gm, "");
-
-      const data = encodeURI(csvContent);
-      const link = document.createElement("a");
-      link.setAttribute("href", data);
-      link.setAttribute("download", "company.csv");
-      link.click();
-    }
-  },
-   created() {
-     axios.get('http://localhost:3000/company/')
-     .then(res => {
-       this.companies = res.data
-     })
-     .catch(err => {
-       this.errors.push(err);
-     })
-   }
-
-}
-</script>
-
-<style>
-
-</style>

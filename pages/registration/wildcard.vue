@@ -2,11 +2,17 @@
 <v-content>
   <v-flex fluid>
   <v-toolbar height="95">
-        <v-toolbar-title >
-          <img src="../../assets/imgs/logo.png" alt="GMClogo" height="95" style="margin-left:8%;">
-        </v-toolbar-title>
-        <v-spacer />
-          <v-btn to="/register" flat large color="#0074C1">Back</v-btn>
+
+      <nuxt-link to="/home">
+        <img
+          src="../../assets/imgs/logo.png"
+          alt="GMClogo"
+          height="95"
+          style="margin-left:8%;"
+        />
+        </nuxt-link>
+      <v-spacer />
+      <v-btn to="/register" flat large color="#0074C1">Back</v-btn>
     </v-toolbar>
   </v-flex>
       <v-jumbotron color="#DBEACE" style="height:300px;">
@@ -20,19 +26,8 @@
       </v-jumbotron>
 
     <v-content style="margin-bottom:3%;">
-      <v-snackbar
-      v-model="snackbar"
-      absolute
-      top
-      right
-      color="success"
-    >
-      <span>success</span>
-      <v-icon dark>check_circle</v-icon>
-    </v-snackbar>
-
     <v-flex  xs12 sm12 md12 class="justify-center" style="margin-top:5%;">
-      <!-- This is the Wildcard form -->
+      <!-- This is the company form -->
       <form ref="form" enctype="multipart/form-data">
         <v-layout row wrap justify-center>
           <v-flex xs12 sm4 md3 style="margin-left: 0.8%;">
@@ -176,10 +171,9 @@
         <v-layout justify-center style="margin-top:3%;">
            <v-flex xs12 sm8 md6 class="justify-center">
             <v-textarea
-              v-model="form.description"
+              v-model="form.desc"
               color="primary"
               label="What are your expectations for Great Minds Challenge?"
-              hint="John Doe/johndoe@example.com, Jane Doe/janedoe123@example.com,"
               >
             ></v-textarea>
           </v-flex>
@@ -253,14 +247,13 @@ import axios from 'axios';
     form: {
       surname: '',
       names: '',
-      company: '',
       dob: '',
       noc: '',
       jobPosition:'',
       email:'',
       phone: '',
       list: '',
-      description:'',
+      desc:'',
       cloudImage: '',
       cloudFile: '',
       terms: false,
@@ -330,21 +323,21 @@ methods: {
       }
     },
   submitForm() {
-      let formData = new FormData();
-      formData.append("image", this.cloudImage);
-      formData.append("doc", this.cloudFile);
+      let formData = new FormData()
+      formData.append("image", this.cloudImage)
+      formData.append("doc", this.cloudFile)
 
-      formData.append("surename", this.form.surname);
-      formData.append("givennames", this.form.names);
-      formData.append("email", this.email);
+      formData.append("surname", this.form.surname)
+      formData.append("names", this.form.names)
+      formData.append("email", this.form.email)
 
-      formData.append("dob", this.form.dob);
-      formData.append("noc", this.form.noc);
-      formData.append("job position", this.form.jobPosition);
+      formData.append("dob", this.form.dob)
+      formData.append("noc", this.form.noc)
+      formData.append("job position", this.form.jobPosition)
 
-      formData.append("phone", this.form.phone);
-      formData.append("list", this.form.list);
-      formData.append("desc", this.form.desc);
+      formData.append("phone", this.form.phone)
+      formData.append("list", this.form.list)
+      formData.append("desc", this.form.desc)
 
       axios.post('http://localhost:3000/wildcard/postwildcard',formData).then(res =>{
         this.$router.push('/welcome')

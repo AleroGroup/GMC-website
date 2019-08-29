@@ -11,7 +11,7 @@ exports.createApp = (req, res) => {
       jobPosition: req.body.jobPosition,
       email: req.body.email,
       phone: req.body.phone,
-      listAc: req.body.listAc,
+      list: req.body.list,
       desc: req.body.desc
     }
     companyModel.find({
@@ -22,7 +22,7 @@ exports.createApp = (req, res) => {
       jobPosition: companyDetails.jobPosition,
       email: companyDetails.email,
       phone: companyDetails.phone,
-      listAc: companyDetails.listAc,
+      list: companyDetails.list,
       desc: companyDetails.desc
     }, (err, callback) => {
       if (err) {
@@ -44,7 +44,7 @@ exports.createApp = (req, res) => {
           jobPosition: req.body.jobPosition,
           email: req.body.email,
           phone: req.body.phone,
-          listAc: req.body.listAc,
+          list: req.body.list,
           desc: req.body.desc,
           cloudImage: req.files[0].path,
           cloudFile: req.files[0].path,
@@ -62,7 +62,7 @@ exports.createApp = (req, res) => {
             jobPosition: req.body.jobPosition,
             email: req.body.email,
             phone: req.body.phone,
-            listAc: req.body.listAc,
+            list: req.body.list,
             desc: req.body.desc,
             cloudImage: result.url,
             cloudFile: result.url,

@@ -29,7 +29,7 @@ cloudFile: {
 phone: {
   type: String,
 },
-listAc: {
+list: {
   type: String,
 },
 desc: {
