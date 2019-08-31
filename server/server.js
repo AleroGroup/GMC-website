@@ -2,7 +2,8 @@ const express = require('express')
 const app = express()
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
-require('dotenv').config()
+const env = require('dotenv')
+env.config()
 
 // IMOPRTING ESSENTIAL LIBRARIES
 const morgan = require('morgan')
@@ -19,9 +20,7 @@ mongoose.Promise = require('bluebird')
 let mongo = process.env.MONGODB_PASS
 
 const url =
-  'mongodb+srv://alero:' +
-  mongo +
-  '@cluster0-jsnt7.mongodb.net/userForms?retryWrites=true&w=majority'
+  'mongodb+srv://alero:'+ mongo + '@cluster0-jsnt7.mongodb.net/userForms?retryWrites=true&w=majority'
 mongoose.connect(url, {
   useNewUrlParser: true
 })
