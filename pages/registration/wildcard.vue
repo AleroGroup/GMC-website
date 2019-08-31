@@ -201,7 +201,16 @@
             <v-card-actions>
                <button flat @click="resetForm()">Cancel</button>
                <v-spacer></v-spacer>
-                <nuxt-link to="/welcome" style="text-decoration:none;"><v-btn  :disabled="!valid" flat color="primary" @click="submitForm()">Apply</v-btn></nuxt-link>
+                  <nuxt-link to="/welcome" style="text-decoration:none;">
+                <v-btn
+                :loading="loading"
+                :disabled="loading"
+                flat
+                color="primary"
+                @click.stop.prevent="submitForm(); loader = 'loading'">
+                  Apply
+                </v-btn>
+                </nuxt-link>
 
             </v-card-actions>
           </v-flex>
@@ -236,6 +245,13 @@
 import axios from 'axios';
 
   export default{
+     asyncData () {
+    return new Promise((resolve) => {
+      setTimeout(function () {
+        resolve({})
+      }, 1000)
+    })
+  },
     head () {
       return {
         title: "Wildcard application form • Great Minds Challenge Nairobi",
@@ -279,7 +295,16 @@ import axios from 'axios';
 
      }
   },
+  watch: {
+     loader () {
+        const l = this.loader
+        this[l] = !this[l]
 
+        setTimeout(() => (this[l] = false), 3000)
+
+        this.loader = null
+      }
+  },
 methods: {
  imgFile() {
       this.$refs.image.click();

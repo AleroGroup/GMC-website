@@ -195,7 +195,16 @@
             <v-card-actions>
                <button flat @click="resetForm()">Cancel</button>
                <v-spacer></v-spacer>
-                <nuxt-link to="/welcome" style="text-decoration:none;"><v-btn  :disabled="!valid" flat color="primary" @click="submitForm()">Apply</v-btn></nuxt-link>
+                <nuxt-link to="/welcome" style="text-decoration:none;">
+                <v-btn
+                :loading="loading"
+                :disabled="loading"
+                flat
+                color="primary"
+                @click.stop.prevent="submitForm(); loader = 'loading'">
+                  Apply
+                </v-btn>
+                </nuxt-link>
 
             </v-card-actions>
           </v-flex>
@@ -229,10 +238,18 @@
 <script>
 import axios from 'axios';
 
+
   export default{
+    asyncData () {
+    return new Promise((resolve) => {
+      setTimeout(function () {
+        resolve({})
+      }, 1000)
+    })
+  },
     head () {
       return {
-        title: "Wildcard application form • Great Minds Challenge Nairobi",
+        title: "Company application form • Great Minds Challenge Nairobi",
       }
   },
   data () {
@@ -263,7 +280,8 @@ import axios from 'axios';
         termsContent: `Esteemed Great Mind, by submitting this application form, you unconditionally and without any reservation agree to abide by all Great Minds Challenge TCs. You faithfully declare that all the information provided above is true to the best of your knowledge. You agree not to hold us liable for any accidents or incidents when travelling to and from Diani, during meet and greet and during your stay on the 3 exclusive days. You agree to fully take responsibility of your actions and indemnify Great Minds Challenge from any accidents or incidents. You declare to freely attend in good faith and be committed during the 2 months engagement with GMC. We commit to endeavour to offer you a world class experience observing international best practice standards.
         `,
         terms:false,
-        snackbar: false,
+        loading: false,
+        loader: null,
         error:'',
         valid: true,
         imgUrl: '',
@@ -271,9 +289,19 @@ import axios from 'axios';
         cvUrl: '',
         cvName:'',
 
+
      }
   },
+  watch: {
+      loader () {
+        const l = this.loader
+        this[l] = !this[l]
 
+        setTimeout(() => (this[l] = false), 3000)
+
+        this.loader = null
+      }
+  },
 methods: {
  imgFile() {
       this.$refs.image.click();
@@ -317,6 +345,7 @@ methods: {
       }
     },
   submitForm() {
+
       let formData = new FormData()
       formData.append("image", this.cloudImage)
       formData.append("doc", this.cloudFile)
@@ -348,3 +377,41 @@ methods: {
   }
 }
 </script>
+
+<style>
+  .custom-loader {
+    animation: loader 1s infinite;
+    display: flex;
+  }
+  @-moz-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @-webkit-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @-o-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }

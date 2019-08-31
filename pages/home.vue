@@ -138,7 +138,7 @@
       </v-layout>
 
     </v-layout>
-      <v-img src="https://images.ctfassets.net/pinw8ucllktt/28RVgHDvBY0EzVin4FyINn/8783dfc9b36abe3e66a84b4e800ee4f2/swash.svg" style="margin-top:2%;margin-bottom:5%;">
+      <v-img :src="greenwave" style="margin-top:2%;margin-bottom:5%;">
 
         <v-layout row style="margin-top:5%;" text-xs-left text-lg-left align-center>
          <!-------------------------->
@@ -196,7 +196,6 @@ import Footer from '../components/Footer.vue'
 import HeaderMain from "../components/header_one.vue"
 
 export default {
-
   components: {
     HeaderMain,
     Footer
@@ -210,6 +209,8 @@ export default {
       return {
         mainurl: 'https://ik.imagekit.io/qpt2onjfe/gmc/gmc_site/main/images/37954915406_b4b672f478_h_uRQHlkktZ.png',
 
+        greenwave: 'https://images.ctfassets.net/pinw8ucllktt/28RVgHDvBY0EzVin4FyINn/8783dfc9b36abe3e66a84b4e800ee4f2/swash.svg',
+        
         items: [
           {
             src: 'https://ik.imagekit.io/qpt2onjfe/gmc/gmc_site/main/t2/Group_178_rDslrDayd.svg'
