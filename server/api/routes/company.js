@@ -26,7 +26,6 @@ router.get('/:companyId', (req, res, next) => {
     });
 });
 
-
 //GET all forms
 router.get('/', (req, res, next) => {
   companyModel.find().exec().then(docs => {
