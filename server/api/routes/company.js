@@ -6,7 +6,7 @@ const companyModel = require('../models/company')
 const upload = require('../../middleware/multer')
 const router = express.Router()
 
-router.post('/postcompany', upload.any(), companyController.createApp)
+router.post('/postcompany',upload.any(), companyController.createApp)
 
 
 //GET the form by id

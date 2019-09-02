@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const wildcardSchema = mongoose.Schema({
 surname: {
   type: String,
+  required: true
 },
 names: {
   type: String,
@@ -24,7 +25,6 @@ cloudImage: {
   },
 cloudFile: {
   type: String,
-  required: true
 },
 phone: {
   type: String,

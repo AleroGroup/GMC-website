@@ -70,7 +70,7 @@ exports.createApp = (req, res) => {
           }
 
            console.log('...')
-           console.log(companyDetails.cloudImage, companyDetails.cloudFile)
+           // console.log(companyDetails.cloudImage, companyDetails.cloudFile)
 
           companyModel.create(companyDetails, (err, created) => {
             if (err) {

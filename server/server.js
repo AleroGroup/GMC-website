@@ -15,18 +15,23 @@ const path = require('path')
 const nodemailer = require('nodemailer')
 const multipart = require('connect-multiparty')
 
+
 // import database configuration
 const mongoose = require('mongoose')
 mongoose.Promise = require('bluebird')
 
-let mongo = process.env.MONGODB_PASS
+// let mongo = process.env.MONGODB_PASS
+const methodOverride = require('method-override')
 
-const url = 'mongodb://alero:oErOZoLW1@ds215988.mlab.com:15988/heroku_jb1kdl7j'
+
+const mongoURI = 'mongodb://alero:oErOZoLW1@ds215988.mlab.com:15988/heroku_jb1kdl7j'
 /* 'mongodb+srv://alero:oErOZoLW@cluster0-jsnt7.mongodb.net/userForms?retryWrites=true&w=majority' */
-mongoose.connect(url, {
+mongoose.connect(mongoURI, {
   useNewUrlParser: true
 })
-mongoose.connection
+let conn = mongoose.connection
+
+
 
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')
@@ -127,6 +132,7 @@ async function start() {
   app.use(cors())
   app.use(morgan('dev'))
   app.use(bodyParser.json())
+  app.use(methodOverride('_method'));
   app.use(bodyParser.urlencoded({
     extended: false
   }));
