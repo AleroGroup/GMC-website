@@ -22,7 +22,7 @@
     <v-content style="margin-bottom:3%;">
     <v-flex  xs12 sm12 md12 class="justify-center" style="margin-top:5%;">
       <!-- This is the company form -->
-      <form ref="form" enctype="multipart/form-data">
+      <form ref="form"  @submit.prevent="submitForm" enctype="multipart/form-data">
         <v-layout row wrap justify-center>
           <v-flex xs12 sm4 md3 style="margin-left: 0.8%;">
               <v-text-field
@@ -120,6 +120,7 @@
                   label="Select Image"
                   v-model="imgName"
                   prepend-icon='attach_file'
+                  hint="Please upload a file thats less than 4MB"
                   @click='imgFile'>
                 </v-text-field>
                   <input
@@ -201,7 +202,7 @@
                 :disabled="loading"
                 flat
                 color="primary"
-                @click.stop.prevent="submitForm(); loader = 'loading'">
+                @click="loader = 'loading'">
                   Apply
                 </v-btn>
                 </nuxt-link>
