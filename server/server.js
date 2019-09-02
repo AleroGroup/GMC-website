@@ -1,7 +1,10 @@
 const express = require('express')
 const app = express()
 const consola = require('consola')
-const { Nuxt, Builder } = require('nuxt')
+const {
+  Nuxt,
+  Builder
+} = require('nuxt')
 require('dotenv').config()
 
 // IMOPRTING ESSENTIAL LIBRARIES
@@ -18,8 +21,8 @@ mongoose.Promise = require('bluebird')
 
 let mongo = process.env.MONGODB_PASS
 
-const url =
-  'mongodb+srv://alero:oErOZoLW@cluster0-jsnt7.mongodb.net/userForms?retryWrites=true&w=majority'
+const url = 'mongodb://alero:oErOZoLW1@ds215988.mlab.com:15988/heroku_jb1kdl7j'
+/* 'mongodb+srv://alero:oErOZoLW@cluster0-jsnt7.mongodb.net/userForms?retryWrites=true&w=majority' */
 mongoose.connect(url, {
   useNewUrlParser: true
 })
@@ -54,12 +57,12 @@ const transporter = nodemailer.createTransport({
     pass: process.env.SENDGRID_PASSWORD */
   }
 });
-    app.post("/sendmail", multipartMiddleware, function (req, res) {
-       let mailOptions = {
-       to: email,
-       from: 'Great Minds Challenge <info@greatmindschallenge.co.ke>',
-       subject: 'Company Participant '+ name,
-       html: `<div>
+app.post("/sendmail", multipartMiddleware, function (req, res) {
+  let mailOptions = {
+    to: email,
+    from: 'Great Minds Challenge <info@greatmindschallenge.co.ke>',
+    subject: 'Company Participant ' + name,
+    html: `<div>
        <div style="display: flex;
        position: relative;
        flex-direction: column;
@@ -102,19 +105,19 @@ const transporter = nodemailer.createTransport({
       </div>
     </div> `
   }
-   transporter.sendMail(mailOptions, function (error, info) {
-     if (error) {
-       return res.json({
-         status: 500,
-         message: `Error sending mail`
-       });
-     } else {
-       return res.json({
-         status: 200,
-         message: `Email sent`
-       })
-     }
-   })
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      return res.json({
+        status: 500,
+        message: `Error sending mail`
+      });
+    } else {
+      return res.json({
+        status: 200,
+        message: `Email sent`
+      })
+    }
+  })
 })
 
 
@@ -137,7 +140,7 @@ async function start() {
 
   app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
-    res.header('Access-Control-Allow-Headers','*')
+    res.header('Access-Control-Allow-Headers', '*')
     if (req.method === 'OPTIONS') {
       res.header(
         'Access-Control-Allow-Methods',
@@ -165,7 +168,10 @@ async function start() {
   // Init Nuxt.js
   const nuxt = new Nuxt(config)
 
-  const { host, port } = nuxt.options.server
+  const {
+    host,
+    port
+  } = nuxt.options.server
 
   // Build only in dev mode
   if (config.dev) {
