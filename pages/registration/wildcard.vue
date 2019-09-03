@@ -208,7 +208,7 @@
                 flat
                 color="primary"
                 type="submit"
-                @click="loader = 'loading'">
+                @click="submitForm();loader = 'loading'">
                   Apply
                 </v-btn>
                 </nuxt-link>

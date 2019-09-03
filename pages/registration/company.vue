@@ -202,7 +202,7 @@
                 :disabled="loading"
                 flat
                 color="primary"
-                @click="loader = 'loading'">
+                @click="submitForm();loader = 'loading'">
                   Apply
                 </v-btn>
                 </nuxt-link>

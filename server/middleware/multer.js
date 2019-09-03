@@ -28,7 +28,7 @@ mongoose.Promise = require('bluebird')
 let multer = require('multer')
 let GridFsStorage = require('multer-gridfs-storage')
 let Grid = require('gridfs-stream')
-const mongoURI = 'mongodb+srv://alero:oErOZoLW@cluster0-jsnt7.mongodb.net/userForms?retryWrites=true&w=majority'
+const mongoURI = 'mongodb://alero:22oplog-reader@ds217148-a0.mlab.com:17148,ds217148-a1.mlab.com:17148/heroku_vk8w1qws?replicaSet=rs-ds217148'
 mongoose.connect(mongoURI, {
   useNewUrlParser: true
 })
