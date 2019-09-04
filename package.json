@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon server/server.js --watch server",
     "build": "nuxt build",
-    "start": "cross-env NODE_ENV=production node server/server.js",
+    "start": "nuxt start",
+    "restart": "cross-env NODE_ENV=production node server/server.js",
     "generate": "nuxt generate",
     "clear:babel-cache": "rimraf -rf ./node_modules/.cache/babel-loader",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
@@ -40,6 +41,7 @@
     "nodemailer": "^6.3.0",
     "nuxt": "^2.4.0",
     "nuxt-env": "^0.1.0",
+    "nuxt-start": "^2.9.2",
     "sendgrid": "^5.2.3",
     "validator": "^11.1.0",
     "vuelidate": "^0.7.4",
