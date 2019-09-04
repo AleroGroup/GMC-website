@@ -17,20 +17,11 @@ const multipart = require('connect-multiparty')
 
 
 // import database configuration
-const mongoose = require('mongoose')
-mongoose.Promise = require('bluebird')
+const database = require('./middleware/mongoose')
+
 
 // let mongo = process.env.MONGODB_PASS
 const methodOverride = require('method-override')
-
-//'mongodb://alero:oErOZoLW1@ds215988.mlab.com:15988/heroku_jb1kdl7j'
-const mongoURI = 'mongodb://alero:22oplog-reader@ds217148-a0.mlab.com:17148,ds217148-a1.mlab.com:17148/heroku_vk8w1qws?replicaSet=rs-ds217148'
-mongoose.connect(mongoURI, {
-  useNewUrlParser: true
-})
-let conn = mongoose.connection
-
-
 
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')
@@ -126,14 +117,14 @@ app.post("/sendmail", multipartMiddleware, function (req, res) {
 
 
 
-async function start() {
+/* async function start() {
   //Middlewares
   app.use(cors())
   app.use(morgan('dev'))
   app.use(bodyParser.json())
   app.use(methodOverride('_method'));
   app.use(bodyParser.urlencoded({
-    extended: false
+    extended: true
   }));
   app.use(express.static(path.join(__dirname, 'public')))
   app.use('/uploads', express.static('uploads'));
@@ -197,4 +188,63 @@ async function start() {
   })
 }
 
-start()
+start() */
+
+
+//Middlewares
+app.use(cors())
+app.use(morgan('dev'))
+app.use(bodyParser.json())
+app.use(methodOverride('_method'));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(express.static(path.join(__dirname, 'public')))
+app.use('/uploads', express.static('uploads'));
+
+//app.use('/uploads', express.static('uploads'));
+app.use('/company', companyRouter)
+app.use('/wildcard', wildcardRouter)
+
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', '*')
+  if (req.method === 'OPTIONS') {
+    res.header(
+      'Access-Control-Allow-Methods',
+      'PUT',
+      'POST',
+      'PATCH',
+      'DELETE',
+      'GET'
+    )
+    return res.status(200).json({})
+  }
+  next()
+})
+
+
+app.use((error, req, res, next) => {
+  res.status(error.status || 500)
+  res.json({
+    error: {
+      message: error.message
+    }
+  })
+})
+
+const host = process.env.HOST || '127.0.0.1'
+const port = process.env.PORT || 3000
+
+const nuxt = new Nuxt(config)
+
+if (config.dev) {
+  const builder = new Builder(nuxt)
+  builder.build()
+}
+
+app.use(nuxt.render)
+
+app.listen(port, host)
+console.log('Server is listening on ' + host + ':' + port)
