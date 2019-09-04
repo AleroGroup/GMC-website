@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon server/server.js --watch server",
     "build": "nuxt build",
-    "start": "nuxt start",
+    "start": "cross-env NODE_ENV=production sudo forever start -ae errors.log server/server.js --port 80",
     "restart": "cross-env NODE_ENV=production node server/server.js",
     "generate": "nuxt generate",
     "clear:babel-cache": "rimraf -rf ./node_modules/.cache/babel-loader",
@@ -31,6 +31,7 @@
     "dotenv": "^6.2.0",
     "eslint": "^6.1.0",
     "express": "^4.16.4",
+    "forever-monitor": "^1.7.1",
     "gridfs-stream": "^1.1.1",
     "material-icons": "^0.3.1",
     "method-override": "^3.0.0",
