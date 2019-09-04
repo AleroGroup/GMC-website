@@ -28,17 +28,18 @@ mongoose.Promise = require('bluebird')
 let multer = require('multer')
 let GridFsStorage = require('multer-gridfs-storage')
 let Grid = require('gridfs-stream')
-const mongoURI = 'mongodb://alero:22oplog-reader@ds217148-a0.mlab.com:17148,ds217148-a1.mlab.com:17148/heroku_vk8w1qws?replicaSet=rs-ds217148'
-mongoose.connect(mongoURI, (err, res) => {
-  if (err) {
-    console.log('Failed to connected to ' + mongoURI)
-  } else {
-    console.log('Connected to ' + mongoURI)
-  }
-})
-let conn = mongoose.connection
+const mongoURI = "mongodb://alero:22oplog-reader@ds217148-a0.mlab.com:17148,ds217148-a1.mlab.com:17148/heroku_vk8w1qws?replicaSet=rs-ds217148"
 
+mongoose.connect(mongoURI, {
+  useNewUrlParser: true
+}, )
+var conn = mongoose.connection;
 
+conn.on('error', console.error.bind(console, 'connection error:'));
+
+conn.once('open', () => {
+  console.log('connected to a database')
+});
 
 // Init gfs
 let gfs;

@@ -82,7 +82,7 @@ export default {
     }
   },
    created() {
-     axios.get('http://localhost:3000/company/')
+     axios.get('http://ec2-3-17-164-106.us-east-2.compute.amazonaws.com:8000/company/')
      .then(res => {
        this.companies = res.data
      })

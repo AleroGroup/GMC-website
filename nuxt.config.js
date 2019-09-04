@@ -14,16 +14,14 @@ module.exports = {
 
   env: {
     baseUrl: process.env.NODE_ENV === 'production' ?
-      `${siteConfig.url}/` :
-      'http://localhost:3000/'
+      `${siteConfig.url}/` : 'http://localhost:3000/'
   },
   /*
-  ** Headers of the page
-  */
+   ** Headers of the page
+   */
   head: {
     title: 'Great Minds Nairobi',
-    meta: [
-      {
+    meta: [{
         charset: 'utf-8'
       },
       {
@@ -61,8 +59,7 @@ module.exports = {
         hid: 'og:image',
         property: 'og:image',
         content: process.env.NODE_ENV === 'production' ?
-          `${siteConfig.url}/${siteConfig.ogImage}` :
-          `http://localhost:3000/${siteConfig.ogImage}`
+          `${siteConfig.url}/${siteConfig.ogImage}` : `http://localhost:3000/${siteConfig.ogImage}`
       },
 
       {
@@ -76,17 +73,18 @@ module.exports = {
         content: 'rD0ww0onzejSz3QS0Jrl-als30HUz9pYDcuVi2dXzNo'
       }
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      {
-        rel: 'stylesheet',
-        href:
-          'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
+    link: [{
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/favicon.ico'
       },
       {
         rel: 'stylesheet',
-        href:
-          'https://use.fontawesome.com/releases/v5.0.13/css/all.css'
+        href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css'
       }
     ]
   },
@@ -94,28 +92,28 @@ module.exports = {
 
 
   /*
-  ** Customize the progress-bar color
-  */
+   ** Customize the progress-bar color
+   */
   //loading: { color: '#fff' },
   loading: '~/components/loading.vue',
 
   /*
-  ** Global CSS
-  */
+   ** Global CSS
+   */
   css: [
     '~/assets/style/app.styl'
   ],
 
   /*
-  ** Plugins to load before mounting the App
-  */
+   ** Plugins to load before mounting the App
+   */
   plugins: [
     '@/plugins/vuetify',
   ],
 
   /*
-  ** Nuxt.js modules
-  */
+   ** Nuxt.js modules
+   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
@@ -125,21 +123,21 @@ module.exports = {
     '@nuxtjs/google-analytics'
   ],
   /*
-  ** Axios module configuration
-  */
+   ** Axios module configuration
+   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
     baseURL: '/'
   },
 
   /*
-  ** Proxy config
-  */
+   ** Proxy config
+   */
   proxy: {
-   //
+    //
   },
 
-googleAnalytics: {
+  googleAnalytics: {
     id: analyticsID
   },
 
@@ -147,14 +145,14 @@ googleAnalytics: {
     hostname: siteUrl
   },
 
-    server: {
-      port: 8000, // default: 3000
-      host: '0.0.0.0', // default: localhost
-    },
+  server: {
+    port: 3000, // default: 3000
+    host: '0.0.0.0', // default: localhost
+  },
 
   /*
-  ** Build configuration
-  */
+   ** Build configuration
+   */
   build: {
     transpile: ['vuetify/lib'],
     plugins: [new VuetifyLoaderPlugin()],
@@ -164,9 +162,8 @@ googleAnalytics: {
       }
     },
     /*
-    ** You can extend webpack config here
-    */
-    extend(config, ctx) {
-    }
+     ** You can extend webpack config here
+     */
+    extend(config, ctx) {}
   }
 }
