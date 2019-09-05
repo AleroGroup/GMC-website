@@ -363,7 +363,7 @@ methods: {
       formData.append("list", this.form.list)
       formData.append("desc", this.form.desc)
 
-      axios.post('http://ec2-3-17-164-106.us-east-2.compute.amazonaws.com:8000/company/postcompany',formData).then(res =>{
+      axios.post('http://localhost:8000/company/postcompany',formData).then(res =>{
         this.$router.push('/welcome')
       }).catch(err => {
             this.errors.push(error);
